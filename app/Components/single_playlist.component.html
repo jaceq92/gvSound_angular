@@ -1,0 +1,18 @@
+<div class="item">
+    <ul class="list-group" dnd-sortable-container [sortableData]="playlist">
+        <li *ngFor="let song of playlist; let i = index" [class.selected]="song.id === selectedSong?.id" (dblclick)="onSelect(song)" class="list-group-item"
+         dnd-sortable [sortableIndex]="i">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="artist">{{song.song_artist}}</td>
+                    <td></td>
+                    <td class="song_name">{{song.song_name}}</td>
+                    <td class="song_added">{{song.song_added | date:'dd.MM.yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </li>
+    </ul>
+</div>
+        

@@ -1,0 +1,52 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    text-align: center;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    cursor:pointer;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: #111;
+}
+
+.mybar{
+    width:100%;
+    margin-top:0px !important;
+}
+.searchinput{
+    border-radius: 5px;
+    color:black;
+            transition: all .2s ease-in-out;
+   padding-left:5px;
+}
+.nohover:hover{
+    background-color: transparent !important;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+    transform: scale(1.1);
+     -moz-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+}
+input:hover{
+transform: scale(1.1);
+     -moz-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+}

@@ -1,0 +1,9 @@
+<navigation-component></navigation-component>
+<div class="container">
+  <all-playlists (currentPlaylist)="playlistChanged($event)"></all-playlists>
+  <single-playlist [currentPlaylist]="currentPlaylist"></single-playlist>
+  <div [style.display]="playerVisible?'none':'inherit'" class="item">
+    <div id="player"></div>
+  </div>
+</div>
+<media-control (isHidden)="playerVisibilityChanged($event)"></media-control>

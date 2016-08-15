@@ -1,0 +1,9 @@
+<div class="item">
+    <ul class="list-group">
+        <li *ngFor="let playlist of playlists; let i = index" (click)="onSelect(playlist)" class="list-group-item"
+        [class.selected]="playlist === selectedPlaylist" role="button">
+        {{playlist.playlist_name}}
+        </li>
+    </ul>
+</div>
+            

@@ -1,0 +1,36 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    bottom: 0;
+    width:100% !important;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    cursor:pointer;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+.mybar{
+    width:100% !important;
+    margin-top:0px !important;
+}
