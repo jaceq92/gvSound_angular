@@ -13,7 +13,7 @@ export class PlaylistService {
      // Resolve HTTP using the constructor
      constructor (private http: Http) {}
      // private instance variable to hold base url
-     private Url = '/api/';
+     private Url = 'http://localhost:15044/api/';
 
     getPlaylists() : Observable<Playlist[]> {
             return this.http.get(this.Url + "getplaylists/JSK")

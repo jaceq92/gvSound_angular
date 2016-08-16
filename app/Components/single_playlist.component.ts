@@ -19,9 +19,11 @@ export class PlaylistComponent implements OnChanges {
     playlist:Array < Song >  = []; 
     selectedSong:Song; 
     @Input()currentPlaylist: Playlist;
+    @Input()playerHidden: boolean;
     subscription: Subscription;
     state:number;
     indexOfNextSong:any;
+    height: string;
 
     constructor (private playlistService:PlaylistService, private youtubeService: YoutubeService) {
        this.subscription = this.youtubeService.state$.subscribe(
@@ -45,6 +47,15 @@ export class PlaylistComponent implements OnChanges {
         if (this.currentPlaylist != undefined){
         this.getPlaylist(this.currentPlaylist.playlist_id);
         }}
+        if(changes['playerHidden'] != undefined){
+          this.playerHidden = changes['playerHidden'].currentValue;
+          if (this.playerHidden == true){
+            this.height="75vh";
+          }
+          else{
+            this.height="35vh";
+          }
+        }
     }
 
     getPlaylist(id:number) {

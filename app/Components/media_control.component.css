@@ -3,7 +3,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #add8e6;
     position: fixed;
     bottom: 0;
     width:100% !important;
@@ -28,7 +28,7 @@ li a {
 }
 
 li a:hover {
-    background-color: #111;
+    background-color: #91d0e5;
 }
 .mybar{
     width:100% !important;

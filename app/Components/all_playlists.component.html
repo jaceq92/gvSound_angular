@@ -1,8 +1,8 @@
-<div class="item">
+<div class="item" [style.height]="height">
     <ul class="list-group">
         <li *ngFor="let playlist of playlists; let i = index" (click)="onSelect(playlist)" class="list-group-item"
         [class.selected]="playlist === selectedPlaylist" role="button">
-        {{playlist.playlist_name}}
+        <a>{{playlist.playlist_name}}</a>
         </li>
     </ul>
 </div>

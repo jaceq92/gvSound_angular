@@ -11,7 +11,15 @@ li{
         border-radius:5px;
         transition: all .2s ease-in-out;
         font-size: small;
-
+}
+li a{
+     padding-left:5px;
+     color:black;
+}
+li a:hover{
+     padding-left:5px;
+     color:black;
+     text-decoration: none;
 }
 li:hover{
     transform: scale(1.05);
@@ -20,10 +28,15 @@ li:hover{
 }
 
 .selected{
-    background-color:lightcyan;
+    background-color:#add8e6;
+}
+.selected a{
+    color:white !important;
 }
 .item{
-    height: 82.5vh !important;
+    height: 35vh;
     overflow-y:auto;
-    width:10vw !important;
+    width:10vw;
+        transition: all .5s ease-in-out;
+    transition-delay: 0.3s;
 }

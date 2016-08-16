@@ -1,5 +1,16 @@
 .item{
-    max-width:18vw !important;
-    height:82.5vh;
-    margin: 0;
+    width:90.5vw;
+    height:45vh;
+    margin-top:2.5vh;
+}
+.playerhide{
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 1000ms, opacity 300ms;
+}
+.playervisible{
+    visibility:visible;
+    opacity:100;
+    transition: visibility 1000ms linear 1000ms, opacity 1000ms;
+    transition-delay: 0.5s;
 }

@@ -20,18 +20,17 @@ import { Song } from '../Model/song';
 export class AppComponent {
   componentName: 'AppComponent'
   currentPlaylist: Playlist;
-  playerVisible: boolean;
+  playerHidden: boolean = true;
   constructor (private youtubeService:YoutubeService) {}
 
   ngOnInit(){
     this.youtubeService.setupPlayer();
   }
-
   playlistChanged(val: any)
   {
     this.currentPlaylist = val;
   }
   playerVisibilityChanged(val: any){
-    this.playerVisible = val;
+    this.playerHidden = val;
   }
 }

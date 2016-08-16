@@ -17,6 +17,7 @@ var media_control_component_1 = require('../Components/media_control.component')
 var AppComponent = (function () {
     function AppComponent(youtubeService) {
         this.youtubeService = youtubeService;
+        this.playerHidden = true;
     }
     AppComponent.prototype.ngOnInit = function () {
         this.youtubeService.setupPlayer();
@@ -25,7 +26,7 @@ var AppComponent = (function () {
         this.currentPlaylist = val;
     };
     AppComponent.prototype.playerVisibilityChanged = function (val) {
-        this.playerVisible = val;
+        this.playerHidden = val;
     };
     AppComponent = __decorate([
         core_1.Component({

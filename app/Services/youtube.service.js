@@ -34,7 +34,7 @@ var YoutubeService = (function () {
         return new browser_1.window.YT.Player('player', {
             height: '100%',
             width: '100%',
-            videoId: 'TlZgiK6FiO0',
+            videoId: '',
             playerVars: {
                 'modestbranding': 1,
                 'autoplay': 0,
@@ -45,7 +45,7 @@ var YoutubeService = (function () {
         });
     };
     YoutubeService.prototype.playSong = function (song_url) {
-        this.player.loadVideoById(song_url);
+        this.player.loadVideoById(song_url, 0, "highres");
     };
     YoutubeService.prototype.onStateChanged = function (event) {
         this._stateSource.next(event.data);

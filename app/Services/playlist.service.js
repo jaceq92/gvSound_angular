@@ -19,7 +19,7 @@ var PlaylistService = (function () {
     function PlaylistService(http) {
         this.http = http;
         // private instance variable to hold base url
-        this.Url = '/api/';
+        this.Url = 'http://localhost:15044/api/';
     }
     PlaylistService.prototype.getPlaylists = function () {
         return this.http.get(this.Url + "getplaylists/JSK")

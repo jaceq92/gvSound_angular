@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter }from '@angular/core'; 
+import {Component, OnInit, Output, EventEmitter, Input, SimpleChanges }from '@angular/core'; 
 import {PlaylistService }from '../Services/playlist.service'; 
 import {Playlist }from '../Model/playlist'; 
 
@@ -13,8 +13,10 @@ import {Playlist }from '../Model/playlist';
 
 export class PlaylistsComponent implements OnInit {
     playlists:Array < Playlist >  = []; 
-    selectedPlaylist:Playlist; 
-    currentPlaylist:EventEmitter < Playlist >  = new EventEmitter < Playlist > (); 
+    selectedPlaylist:Playlist;
+    height: string;
+    currentPlaylist:EventEmitter < Playlist >  = new EventEmitter < Playlist > ();
+    @Input()playerHidden: boolean;
 
     constructor (private playlistService:PlaylistService) {}
     
@@ -24,6 +26,17 @@ export class PlaylistsComponent implements OnInit {
     }
     ngOnInit() {
         this.getPlaylists(); 
+    }
+     ngOnChanges(changes:SimpleChanges) {
+        if(changes['playerHidden'] != undefined){
+          this.playerHidden = changes['playerHidden'].currentValue;
+          if (this.playerHidden == true){
+            this.height="75vh";
+          }
+          else{
+            this.height="35vh";
+          }
+        }
     }
     onLoaded() {
         this.selectedPlaylist = this.playlists[0]; 

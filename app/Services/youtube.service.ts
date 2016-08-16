@@ -30,7 +30,7 @@ export class YoutubeService {
          return new window.YT.Player('player',  {
         height: '100%', 
         width:'100%', 
-        videoId:'TlZgiK6FiO0', 
+        videoId:'', 
         playerVars: {
             'modestbranding':1, 
             'autoplay':0, 
@@ -41,7 +41,7 @@ export class YoutubeService {
     }); 
     }
     playSong(song_url:string) {
-        this.player.loadVideoById(song_url); 
+        this.player.loadVideoById(song_url, 0, "highres"); 
     }
     onStateChanged(event) {
             this._stateSource.next(event.data);

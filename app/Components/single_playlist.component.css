@@ -16,10 +16,14 @@ li{
 }
 
 .selected{
-    background-color:lightblue;
+    background-color:#add8e6;
+}
+.selected td{
+    color:white !important;
 }
 .artist{
     width:42.5%;
+    padding-left:5px;
 }
 .song_name{
     width:42.5%;
@@ -30,10 +34,13 @@ li{
     width:15%;
 }
 .item{
-    height: 82.5vh;
+    height: 35vh;
     overflow-y:auto;
-    width:60vw !important;
+    width:80vw !important;
     overflow-x:hidden;
+    margin-left:5px;
+    transition: all .5s ease-in-out;
+    transition-delay: 0.3s;
 }
 
 table {

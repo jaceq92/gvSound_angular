@@ -15,7 +15,7 @@ var MediaControlComponent = (function () {
         var _this = this;
         this.youtubeService = youtubeService;
         this.isHidden = new core_1.EventEmitter();
-        this._isHidden = false;
+        this._isHidden = true;
         this.subscription = this.youtubeService.state$.subscribe(function (state) {
             _this.state = state;
             if (state == 1) {
@@ -26,7 +26,7 @@ var MediaControlComponent = (function () {
             }
         });
     }
-    MediaControlComponent.prototype.ngOnInit = function () {
+    MediaControlComponent.prototype.ngOnLoaded = function () {
         this.isHidden.emit(this._isHidden);
     };
     MediaControlComponent.prototype.togglePlay = function () {

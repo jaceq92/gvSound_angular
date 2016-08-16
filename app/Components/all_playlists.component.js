@@ -23,6 +23,17 @@ var PlaylistsComponent = (function () {
     PlaylistsComponent.prototype.ngOnInit = function () {
         this.getPlaylists();
     };
+    PlaylistsComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['playerHidden'] != undefined) {
+            this.playerHidden = changes['playerHidden'].currentValue;
+            if (this.playerHidden == true) {
+                this.height = "75vh";
+            }
+            else {
+                this.height = "35vh";
+            }
+        }
+    };
     PlaylistsComponent.prototype.onLoaded = function () {
         this.selectedPlaylist = this.playlists[0];
         this.currentPlaylist.emit(this.playlists[0]);
@@ -34,6 +45,10 @@ var PlaylistsComponent = (function () {
             _this.onLoaded();
         });
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], PlaylistsComponent.prototype, "playerHidden", void 0);
     PlaylistsComponent = __decorate([
         core_1.Component({
             selector: 'all-playlists',

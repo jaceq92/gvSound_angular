@@ -15,7 +15,7 @@ export class MediaControlComponent {
   subscription: Subscription; 
   playButtonToggle:string;
   isHidden:EventEmitter < boolean >  = new EventEmitter < boolean > ();
-  _isHidden: boolean = false;
+  _isHidden: boolean = true;
 
   constructor(private youtubeService:YoutubeService) {
      this.subscription = this.youtubeService.state$.subscribe(
@@ -26,7 +26,7 @@ export class MediaControlComponent {
                   this.playButtonToggle = "play_circle_outline"; }
                 }); 
   }
-  ngOnInit(){
+  ngOnLoaded(){
     this.isHidden.emit(this._isHidden);
   }
   togglePlay() {

@@ -39,6 +39,15 @@ var PlaylistComponent = (function () {
                 this.getPlaylist(this.currentPlaylist.playlist_id);
             }
         }
+        if (changes['playerHidden'] != undefined) {
+            this.playerHidden = changes['playerHidden'].currentValue;
+            if (this.playerHidden == true) {
+                this.height = "75vh";
+            }
+            else {
+                this.height = "35vh";
+            }
+        }
     };
     PlaylistComponent.prototype.getPlaylist = function (id) {
         var _this = this;
@@ -50,6 +59,10 @@ var PlaylistComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', playlist_1.Playlist)
     ], PlaylistComponent.prototype, "currentPlaylist", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], PlaylistComponent.prototype, "playerHidden", void 0);
     PlaylistComponent = __decorate([
         core_1.Component({
             selector: 'single-playlist',
