@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import {NgIf} from '@angular/common';
 
@@ -18,7 +18,7 @@ import { Song } from '../Model/song';
   providers:[YoutubeService]
 })
 export class AppComponent {
-  componentName: 'AppComponent'
+  componentName: 'AppComponent';
   currentPlaylist: Playlist;
   playerHidden: boolean = true;
   constructor (private youtubeService:YoutubeService) {}

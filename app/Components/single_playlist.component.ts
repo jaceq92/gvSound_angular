@@ -21,6 +21,7 @@ export class PlaylistComponent implements OnChanges {
     @Input()currentPlaylist: Playlist;
     @Input()playerHidden: boolean;
     subscription: Subscription;
+    Subscription2: Subscription;
     state:number;
     indexOfNextSong:any;
     height: string;
@@ -33,7 +34,7 @@ export class PlaylistComponent implements OnChanges {
                   this.youtubeService.playSong(this.playlist[this.indexOfNextSong].song_url);
                   this.selectedSong = this.playlist[this.indexOfNextSong];
                   }
-                }); 
+                });
     }
     
     onSelect(song:Song) {

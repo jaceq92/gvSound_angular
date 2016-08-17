@@ -10,7 +10,6 @@
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
 	'ng2-dnd':					  'node_modules/ng2-dnd',
-	'ng2-slimscroll':			  'node_modules/ng2-slimscroll',
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -18,7 +17,7 @@
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
 	"ng2-dnd": 					  {"defaultExtension": "js"},
-	"ng2-slimscroll":			  {"defaultExtension": "js"},
+	'@angular/forms': 			  { main: 'bundles/forms.umd.js', defaultExtension: 'js' },
   };
   var ngPackageNames = [
     'common',

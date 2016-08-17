@@ -1,6 +1,8 @@
 <div class="mybar">
 <ul>
-        <li><a class="nohover"><input class="searchinput" type="text" placeholder="Search"></a></li>
+        <li><a class="nohover"><input class="searchinput" #box (keyup)="keyword=box.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="Search"></a></li>
+        <li><a (click)="showAddSongModal()">Search</a></li>
         <li style="float: right;"><a>Log out</a></li>
 </ul>
 </div>
+<add-song-modal></add-song-modal>

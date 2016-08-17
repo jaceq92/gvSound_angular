@@ -19,7 +19,7 @@ var PlaylistService = (function () {
     function PlaylistService(http) {
         this.http = http;
         // private instance variable to hold base url
-        this.Url = 'http://localhost:15044/api/';
+        this.Url = '/api/';
     }
     PlaylistService.prototype.getPlaylists = function () {
         return this.http.get(this.Url + "getplaylists/JSK")
@@ -30,6 +30,19 @@ var PlaylistService = (function () {
         return this.http.get(this.Url + "getplaylist/JSK/" + id)
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+    };
+    PlaylistService.prototype.getYoutubeSearchResults = function (keyword) {
+        return this.http.get(this.Url + "searchyoutube/" + keyword)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+    };
+    PlaylistService.prototype.addSong = function (body, username, playlist_id) {
+        var bodyString = JSON.stringify(body); // Stringify payload
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.Url + "insertsong/" + username + "/" + playlist_id, body, options).toPromise() // ...using post request
+            .then(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
     };
     PlaylistService = __decorate([
         core_1.Injectable(), 

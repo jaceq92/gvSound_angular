@@ -3,7 +3,7 @@ import { Injectable }     from '@angular/core';
 import { window }from '@angular/platform-browser/src/facade/browser';
 import { Subject }    from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Song }from '../Model/song'; 
+import { Song }from '../Model/song'; 
 import { Playlist } from '../Model/playlist';
 
 

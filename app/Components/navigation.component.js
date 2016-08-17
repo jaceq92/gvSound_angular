@@ -9,14 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var add_song_component_1 = require('../Components/add_song.component');
 var NavigationComponent = (function () {
     function NavigationComponent() {
+        this.keyword = '';
     }
+    NavigationComponent.prototype.showAddSongModal = function () {
+        this.addSong.showAddSongModal(this.keyword);
+    };
+    __decorate([
+        core_1.ViewChild(add_song_component_1.AddSongComponent), 
+        __metadata('design:type', add_song_component_1.AddSongComponent)
+    ], NavigationComponent.prototype, "addSong", void 0);
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'navigation-component',
             templateUrl: 'app/Components/navigation.component.html',
-            styleUrls: ['app/Components/navigation.component.css']
+            styleUrls: ['app/Components/navigation.component.css'],
+            directives: [add_song_component_1.AddSongComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], NavigationComponent);
