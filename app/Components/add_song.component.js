@@ -58,6 +58,7 @@ var AddSongComponent = (function () {
             }
             else {
                 _this.selectedPlaylist = _this.playlists[0];
+                _this.currentPlaylist = _this.playlists[0];
             }
         });
     };

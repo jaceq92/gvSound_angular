@@ -17,10 +17,10 @@
         <div *ngIf="selectedResult != undefined"  class="modal-footer">
                  <form class="addsongform" name="addsongform" id="addsongform" method="post" role="form">
                         <div class="form-group">
-                            <input type="text" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult?.song_artist}}" placeholder="Artist" required>
+                            <input type="text" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult.song_artist}}" placeholder="Artist" disabled required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="song_name" class="form-control" id="song_name_field" value="{{selectedResult?.song_name}}" placeholder="Song Name" required>
+                            <input type="text" name="song_name" class="form-control" id="song_name_field" value="{{selectedResult.song_name}}" placeholder="Song Name" disabled required>
                         </div>
                         <div class="form-group">
                             <select class="form-control" [(ngModel)]="selectedPlaylist" (ngModelChange)="playlistSelect($event)" name="playlistdropdown">

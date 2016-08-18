@@ -65,11 +65,12 @@ export class AddSongComponent {
           }
           else{
               this.selectedPlaylist = this.playlists[0];
+              this.currentPlaylist = this.playlists[0];
           }
         });
     }
     insertSong(event) {
-        event.preventDefault(); 
+        event.preventDefault();
         this.playlistService.addSong(this.selectedResult, "JSK", this.selectedPlaylist.playlist_id).then(
             res => {
                 if (this.selectedPlaylist.playlist_id == this.currentPlaylist.playlist_id){

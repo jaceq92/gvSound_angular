@@ -40,6 +40,7 @@ var PlaylistsComponent = (function () {
     PlaylistsComponent.prototype.onLoaded = function () {
         this.selectedPlaylist = this.playlists[0];
         this.currentPlaylist.emit(this.playlists[0]);
+        this.dataService.announceCurrentPlaylist(this.playlists[0]);
     };
     PlaylistsComponent.prototype.getPlaylists = function () {
         var _this = this;
