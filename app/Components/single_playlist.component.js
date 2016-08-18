@@ -13,18 +13,20 @@ var playlist_service_1 = require('../Services/playlist.service');
 var ng2_dnd_1 = require('ng2-dnd/ng2-dnd');
 var playlist_1 = require('../Model/playlist');
 var youtube_service_1 = require('../Services/youtube.service');
+var data_service_1 = require('../Services/data.service');
 var PlaylistComponent = (function () {
-    function PlaylistComponent(playlistService, youtubeService) {
+    function PlaylistComponent(playlistService, dataService, youtubeService) {
         var _this = this;
         this.playlistService = playlistService;
+        this.dataService = dataService;
         this.youtubeService = youtubeService;
         this.playlist = [];
-        this.subscription = this.youtubeService.state$.subscribe(function (state) {
+        this.youtubeService.state$.subscribe(function (state) {
             _this.state = state;
             if (state == 0) {
-                _this.indexOfNextSong = _this.playlist.indexOf(_this.selectedSong) + 1;
-                _this.youtubeService.playSong(_this.playlist[_this.indexOfNextSong].song_url);
-                _this.selectedSong = _this.playlist[_this.indexOfNextSong];
+                _this.indexOfNextSong = _this.currentPlaylist.songs.indexOf(_this.selectedSong) + 1;
+                _this.youtubeService.playSong(_this.currentPlaylist.songs[_this.indexOfNextSong].song_url);
+                _this.selectedSong = _this.currentPlaylist.songs[_this.indexOfNextSong];
             }
         });
     }
@@ -52,7 +54,10 @@ var PlaylistComponent = (function () {
     PlaylistComponent.prototype.getPlaylist = function (id) {
         var _this = this;
         this.playlistService.getPlaylist(id).subscribe(function (playlist) {
-            _this.playlist = playlist;
+            if (_this.currentPlaylist != undefined) {
+                _this.currentPlaylist.songs = playlist;
+                _this.playlist = _this.currentPlaylist.songs;
+            }
         });
     };
     __decorate([
@@ -71,7 +76,7 @@ var PlaylistComponent = (function () {
             directives: [ng2_dnd_1.DND_DIRECTIVES],
             providers: [playlist_service_1.PlaylistService, ng2_dnd_1.DND_PROVIDERS],
         }), 
-        __metadata('design:paramtypes', [playlist_service_1.PlaylistService, youtube_service_1.YoutubeService])
+        __metadata('design:paramtypes', [playlist_service_1.PlaylistService, data_service_1.DataService, youtube_service_1.YoutubeService])
     ], PlaylistComponent);
     return PlaylistComponent;
 }());

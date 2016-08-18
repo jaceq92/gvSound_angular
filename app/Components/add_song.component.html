@@ -14,20 +14,19 @@
                     </li>
                 </ul>
             </div>
-            <div *ngIf="selectedResult != undefined" class="modal-footer">
+        <div *ngIf="selectedResult != undefined"  class="modal-footer">
                  <form class="addsongform" name="addsongform" id="addsongform" method="post" role="form">
                         <div class="form-group">
-                            <input type="text" name="song_url" class="form-control" id="song_url_field" value="{{selectedResult.song_url}}" placeholder="VideoID">
+                            <input type="text" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult?.song_artist}}" placeholder="Artist" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult.song_artist}}" placeholder="Artist" required>
+                            <input type="text" name="song_name" class="form-control" id="song_name_field" value="{{selectedResult?.song_name}}" placeholder="Song Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="song_name" class="form-control" id="song_name_field" value="{{selectedResult.song_name}}" placeholder="Song Name" required>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" [ngModel]="selectedPlaylist" (ngModelChange)="playlistSelect($event)" name="sel3">
-                                <option [ngValue]="playlist" *ngFor="let playlist of playlists; let i = index" >{{playlist.playlist_name}}</option>
+                            <select class="form-control" [(ngModel)]="selectedPlaylist" (ngModelChange)="playlistSelect($event)" name="playlistdropdown">
+                                <option [ngValue]="playlist" *ngFor="let playlist of playlists; let i = index" >
+                                    {{playlist.playlist_name}}
+                                </option>
                             </select>
                         </div>
                         <button (click)="insertSong($event)" id="addsongform" class="btn btn-default">Add song</button>

@@ -15,7 +15,11 @@ var NavigationComponent = (function () {
         this.keyword = '';
     }
     NavigationComponent.prototype.showAddSongModal = function () {
-        this.addSong.showAddSongModal(this.keyword);
+        if (this.keyword == undefined || this.keyword == "") {
+        }
+        else {
+            this.addSong.showAddSongModal(this.keyword);
+        }
     };
     __decorate([
         core_1.ViewChild(add_song_component_1.AddSongComponent), 

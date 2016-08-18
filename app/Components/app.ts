@@ -6,16 +6,16 @@ import { PlaylistComponent } from '../Components/single_playlist.component';
 import { PlaylistsComponent} from '../Components/all_playlists.component';
 import { NavigationComponent } from '../Components/navigation.component';
 import { YoutubeService } from '../Services/youtube.service';
+import { DataService} from '../Services/data.service';
 import { MediaControlComponent } from '../Components/media_control.component';
-import { Playlist } from '../Model/playlist';
-import { Song } from '../Model/song';
+import { Playlist, Song } from '../Model/playlist';
 
 @Component({
   selector: 'my-app',
   templateUrl: 'app/Components/app.html',
   styleUrls:['app/Components/app.css'],
   directives: [PlaylistComponent, PlaylistsComponent, MediaControlComponent, NavigationComponent],
-  providers:[YoutubeService]
+  providers:[YoutubeService, DataService]
 })
 export class AppComponent {
   componentName: 'AppComponent';

@@ -1,6 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input, SimpleChanges }from '@angular/core'; 
 import {PlaylistService }from '../Services/playlist.service'; 
 import {Playlist }from '../Model/playlist'; 
+import { DataService} from '../Services/data.service';
 
 
 @Component( {
@@ -18,11 +19,12 @@ export class PlaylistsComponent implements OnInit {
     currentPlaylist:EventEmitter < Playlist >  = new EventEmitter < Playlist > ();
     @Input()playerHidden: boolean;
 
-    constructor (private playlistService:PlaylistService) {}
+    constructor (private playlistService:PlaylistService, private dataService: DataService) {}
     
     onSelect(playlist:Playlist) {
        this.selectedPlaylist = playlist; 
-       this.currentPlaylist.emit(this.selectedPlaylist); 
+       this.currentPlaylist.emit(this.selectedPlaylist);
+       this.dataService.announceCurrentPlaylist(this.selectedPlaylist);
     }
     ngOnInit() {
         this.getPlaylists(); 

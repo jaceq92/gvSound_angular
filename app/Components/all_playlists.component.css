@@ -40,3 +40,8 @@ li:hover{
         transition: all .5s ease-in-out;
     transition-delay: 0.3s;
 }
+.addplaylist{
+        margin-top:10px;
+        background-color:#dfffe8;
+        cursor:pointer;
+}

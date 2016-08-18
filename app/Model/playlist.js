@@ -5,4 +5,10 @@ var Playlist = (function () {
     return Playlist;
 }());
 exports.Playlist = Playlist;
+var Song = (function () {
+    function Song() {
+    }
+    return Song;
+}());
+exports.Song = Song;
 //# sourceMappingURL=Playlist.js.map

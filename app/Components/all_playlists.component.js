@@ -10,15 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var playlist_service_1 = require('../Services/playlist.service');
+var data_service_1 = require('../Services/data.service');
 var PlaylistsComponent = (function () {
-    function PlaylistsComponent(playlistService) {
+    function PlaylistsComponent(playlistService, dataService) {
         this.playlistService = playlistService;
+        this.dataService = dataService;
         this.playlists = [];
         this.currentPlaylist = new core_1.EventEmitter();
     }
     PlaylistsComponent.prototype.onSelect = function (playlist) {
         this.selectedPlaylist = playlist;
         this.currentPlaylist.emit(this.selectedPlaylist);
+        this.dataService.announceCurrentPlaylist(this.selectedPlaylist);
     };
     PlaylistsComponent.prototype.ngOnInit = function () {
         this.getPlaylists();
@@ -57,7 +60,7 @@ var PlaylistsComponent = (function () {
             providers: [playlist_service_1.PlaylistService],
             outputs: ['currentPlaylist']
         }), 
-        __metadata('design:paramtypes', [playlist_service_1.PlaylistService])
+        __metadata('design:paramtypes', [playlist_service_1.PlaylistService, data_service_1.DataService])
     ], PlaylistsComponent);
     return PlaylistsComponent;
 }());

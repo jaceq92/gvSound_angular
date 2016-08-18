@@ -1,4 +1,5 @@
 <div class="item" [style.height]="height">
+    <div *ngIf="playlist != undefined">
     <ul class="list-group" dnd-sortable-container [sortableData]="playlist">
         <li *ngFor="let song of playlist; let i = index" [class.selected]="song.id === selectedSong?.id" (dblclick)="onSelect(song)" class="list-group-item"
          dnd-sortable [sortableIndex]="i">
@@ -14,5 +15,6 @@
         </table>
         </li>
     </ul>
+    </div>
 </div>
         

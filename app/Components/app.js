@@ -13,6 +13,7 @@ var single_playlist_component_1 = require('../Components/single_playlist.compone
 var all_playlists_component_1 = require('../Components/all_playlists.component');
 var navigation_component_1 = require('../Components/navigation.component');
 var youtube_service_1 = require('../Services/youtube.service');
+var data_service_1 = require('../Services/data.service');
 var media_control_component_1 = require('../Components/media_control.component');
 var AppComponent = (function () {
     function AppComponent(youtubeService) {
@@ -34,7 +35,7 @@ var AppComponent = (function () {
             templateUrl: 'app/Components/app.html',
             styleUrls: ['app/Components/app.css'],
             directives: [single_playlist_component_1.PlaylistComponent, all_playlists_component_1.PlaylistsComponent, media_control_component_1.MediaControlComponent, navigation_component_1.NavigationComponent],
-            providers: [youtube_service_1.YoutubeService]
+            providers: [youtube_service_1.YoutubeService, data_service_1.DataService]
         }), 
         __metadata('design:paramtypes', [youtube_service_1.YoutubeService])
     ], AppComponent);

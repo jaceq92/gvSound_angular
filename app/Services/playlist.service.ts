@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Song }           from '../Model/song';
 import { Playlist }       from '../Model/Playlist';
 import { Observable } from 'rxjs/Rx';
+import { Subject }    from 'rxjs/Subject';
+
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -13,7 +15,7 @@ export class PlaylistService {
      // Resolve HTTP using the constructor
      constructor (private http: Http) {}
      // private instance variable to hold base url
-     private Url = '/api/';
+     private Url = 'http://localhost:15044/api/';
 
     getPlaylists() : Observable<Playlist[]> {
             return this.http.get(this.Url + "getplaylists/JSK")

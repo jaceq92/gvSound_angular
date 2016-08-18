@@ -14,6 +14,11 @@ export class NavigationComponent {
       keyword = '';
 
       showAddSongModal(){
+        if (this.keyword == undefined || this.keyword == ""){
+
+        }
+        else{
         this.addSong.showAddSongModal(this.keyword);
+        }
       }
 }
