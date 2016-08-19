@@ -2,10 +2,11 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { AddSongComponent } from '../Components/add_song.component';
 
+
 @Component({
     selector: 'navigation-component',
   templateUrl: 'app/Components/navigation.component.html',
-  styleUrls:['app/Components/navigation.component.css'],
+  styleUrls: ['app/Components/navigation.component.css'],
   directives: [AddSongComponent]
 })
 export class NavigationComponent {

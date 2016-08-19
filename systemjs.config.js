@@ -10,6 +10,8 @@
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
 	'ng2-dnd':					  'node_modules/ng2-dnd',
+	'ng2-toasty':				  'node_modules/ng2-toasty',
+	'angular2-contextmenu':		  'node_modules/angular2-contextmenu'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -18,6 +20,8 @@
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
 	"ng2-dnd": 					  {"defaultExtension": "js"},
 	'@angular/forms': 			  { main: 'bundles/forms.umd.js', defaultExtension: 'js' },
+	"ng2-toasty": 				  {"defaultExtension": "js"},
+	"angular2-contextmenu":		  {"defaultExtension": "js"},
   };
   var ngPackageNames = [
     'common',

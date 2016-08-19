@@ -1,5 +1,6 @@
 <div class="mybar">
 <ul>
+        <li class="nowplaying"><a>{{currentSong?.song_artist}} - {{currentSong?.song_name}}</a></li>
         <li (click)="previousSong()"><a><i class="material-icons">skip_previous</i></a></li>
         <li (click)="togglePlay()"><a><i class="material-icons">{{playButtonToggle}}</i></a></li>
         <li (click)="nextSong()"><a><i class="material-icons">skip_next</i></a></li>

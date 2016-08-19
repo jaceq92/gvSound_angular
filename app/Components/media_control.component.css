@@ -34,3 +34,14 @@ li a:hover {
     width:100% !important;
     margin-top:0px !important;
 }
+.nowplaying{
+    width:25%;
+    overflow:hidden;
+}
+.nowplaying a:hover{
+    background-color: #add8e6 !important;
+}
+.nowplaying a{
+    cursor:default;
+    white-space: nowrap;
+}

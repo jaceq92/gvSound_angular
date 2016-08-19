@@ -1,7 +1,7 @@
 <navigation-component></navigation-component>
 <div class="container">
-  <all-playlists (currentPlaylist)="playlistChanged($event)" [playerHidden]="playerHidden"></all-playlists>
-  <single-playlist [currentPlaylist]="currentPlaylist" [playerHidden]="playerHidden"></single-playlist>
+  <all-playlists [playerHidden]="playerHidden"></all-playlists>
+  <single-playlist [playerHidden]="playerHidden"></single-playlist>
   <div [class.playerhide]="playerHidden" [class.playervisible]="!playerHidden" class="item">
     <div id="player"></div>
   </div>

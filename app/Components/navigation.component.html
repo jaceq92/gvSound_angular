@@ -1,14 +1,16 @@
-<div class="mybar">
-<ul>
-        <li><a style="cursor:default;" class="navbar-brand">gvSound</a></li>
-        <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                        <input class="form-control " #box (keyup)="keyword=box.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="Search">
-                </div>
-                <button (click)="showAddSongModal()" class="btn btn-default">Youtube</button>
-                <button class="btn btn-default" disabled>SoundCloud</button>
-        </form>
-        <li style="float: right;"><a>Log out</a></li>
-</ul>
-</div>
+<nav class="navbar navbar-default">
+        <ul>
+                <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                                <input class="form-control " #box (keyup)="keyword=box.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="Search">
+                        </div>
+                        <button (click)="showAddSongModal()" class="btn btn-default">Youtube</button>
+                        <button class="btn btn-default" disabled>SoundCloud</button>
+                </form>
+
+                <form class="navbar-form navbar-right" role="search">
+                        <button style="margin-right:5px;" class="btn btn-default">Log out</button>
+                </form>
+        </ul>
+</nav>
 <add-song-modal></add-song-modal>

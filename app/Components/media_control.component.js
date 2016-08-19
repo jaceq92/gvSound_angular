@@ -10,13 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var youtube_service_1 = require('../Services/youtube.service');
+var data_service_1 = require('../Services/data.service');
 var MediaControlComponent = (function () {
-    function MediaControlComponent(youtubeService) {
+    function MediaControlComponent(youtubeService, dataService) {
         var _this = this;
         this.youtubeService = youtubeService;
+        this.dataService = dataService;
         this.isHidden = new core_1.EventEmitter();
         this._isHidden = true;
-        this.subscription = this.youtubeService.state$.subscribe(function (state) {
+        this.youtubeService.state$.subscribe(function (state) {
             _this.state = state;
             if (state == 1) {
                 _this.playButtonToggle = "pause_circle_outline";
@@ -24,6 +26,12 @@ var MediaControlComponent = (function () {
             else {
                 _this.playButtonToggle = "play_circle_outline";
             }
+        });
+        this.dataService.currentSong$.subscribe(function (currentSong) {
+            _this.currentSong = currentSong;
+        });
+        this.dataService.playingPlaylist$.subscribe(function (playingPlaylist) {
+            _this.playingPlaylist = playingPlaylist;
         });
     }
     MediaControlComponent.prototype.ngOnLoaded = function () {
@@ -33,8 +41,26 @@ var MediaControlComponent = (function () {
         this.youtubeService.togglePlay();
     };
     MediaControlComponent.prototype.nextSong = function () {
+        if (this.playingPlaylist == undefined) {
+            return;
+        }
+        this.indexOfNext = this.playingPlaylist.songs.indexOf(this.currentSong) + 1;
+        if (this.indexOfNext >= this.playingPlaylist.songs.length) {
+            this.indexOfNext = 0;
+        }
+        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
     };
     MediaControlComponent.prototype.previousSong = function () {
+        if (this.playingPlaylist == undefined) {
+            return;
+        }
+        this.indexOfNext = this.playingPlaylist.songs.indexOf(this.currentSong) - 1;
+        if (this.indexOfNext < 0) {
+            this.indexOfNext = 0;
+        }
+        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
     };
     MediaControlComponent.prototype.togglePlayer = function () {
         if (this._isHidden == true) {
@@ -53,7 +79,7 @@ var MediaControlComponent = (function () {
             styleUrls: ['app/Components/media_control.component.css'],
             outputs: ['isHidden']
         }), 
-        __metadata('design:paramtypes', [youtube_service_1.YoutubeService])
+        __metadata('design:paramtypes', [youtube_service_1.YoutubeService, data_service_1.DataService])
     ], MediaControlComponent);
     return MediaControlComponent;
 }());

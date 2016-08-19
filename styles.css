@@ -27,6 +27,15 @@ body{
 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 overflow-y: hidden;
 }
+
+@media screen and (max-width: 480px) {
+    body {
+        overflow-y: scroll;
+    }
+    .item{
+        width:95vw!important;
+    }
+}
 .list-group-item{
     padding:2px 2px !important;
 }

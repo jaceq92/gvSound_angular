@@ -12,4 +12,5 @@ export class Song {
   song_name: string;
   song_url: string;
   song_added: Date;
+  username: string;
 }

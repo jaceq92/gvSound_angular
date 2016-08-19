@@ -1,12 +1,15 @@
 <div class="item" [style.height]="height">
     <ul class="list-group">
-        <li *ngFor="let playlist of playlists; let i = index" (click)="onSelect(playlist)" class="list-group-item"
+        <li *ngFor="let playlist of playlists; let i = index" (contextmenu)="onContextMenu($event, playlist)" (click)="onSelect(playlist)" class="list-group-item"
         [class.selected]="playlist === selectedPlaylist" role="button">
         <a>{{playlist.playlist_name}}</a>
         </li>
-        <li class="list-group-item addplaylist">
+        <li (click)="showAddPlaylistModal()" class="list-group-item addplaylist">
             <a>Add new playlist</a>
         </li>
     </ul>
 </div>
-            
+<add-playlist-modal></add-playlist-modal>
+<context-menu></context-menu>
+<ng2-toasty></ng2-toasty>
+     

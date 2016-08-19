@@ -19,7 +19,7 @@ var PlaylistService = (function () {
     function PlaylistService(http) {
         this.http = http;
         // private instance variable to hold base url
-        this.Url = 'http://localhost:15044/api/';
+        this.Url = '/api/';
     }
     PlaylistService.prototype.getPlaylists = function () {
         return this.http.get(this.Url + "getplaylists/JSK")
@@ -42,7 +42,31 @@ var PlaylistService = (function () {
         var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
         return this.http.post(this.Url + "insertsong/" + username + "/" + playlist_id, body, options).toPromise() // ...using post request
             .then(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
+            .catch(this.handleError); //...errors if any
+    };
+    PlaylistService.prototype.deleteSong = function (song_id) {
+        return this.http.delete(this.Url + "deletesong/" + song_id).toPromise() // ...using post request
+            .then(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(this.handleError); //...errors if any
+    };
+    PlaylistService.prototype.insertPlaylist = function (body, username) {
+        var bodyString = JSON.stringify(body); // Stringify payload
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.Url + "insertplaylist/" + username, body, options).toPromise()
+            .then(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(this.handleError); //...errors if any
+    };
+    PlaylistService.prototype.deletePlaylist = function (playlist_id, username) {
+        return this.http.delete(this.Url + "deleteplaylist/" + username + "/" + playlist_id + "/").toPromise() // ...using post request
+            .then(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(this.handleError); //...errors if any
+    };
+    PlaylistService.prototype.handleError = function (error) {
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Promise.reject(errMsg);
     };
     PlaylistService = __decorate([
         core_1.Injectable(), 

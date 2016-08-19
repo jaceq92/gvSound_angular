@@ -12,11 +12,26 @@ var core_1 = require('@angular/core');
 var Subject_1 = require('rxjs/Subject');
 var DataService = (function () {
     function DataService() {
-        this.currentPlaylistSource = new Subject_1.Subject();
-        this.currentPlaylist$ = this.currentPlaylistSource.asObservable();
+        this.selectedPlaylistSource = new Subject_1.Subject();
+        this.selectedPlaylist$ = this.selectedPlaylistSource.asObservable();
+        this.playingPlaylistSource = new Subject_1.Subject();
+        this.playingPlaylist$ = this.playingPlaylistSource.asObservable();
+        this.currentSongSource = new Subject_1.Subject();
+        this.currentSong$ = this.currentSongSource.asObservable();
+        this.playlistsSource = new Subject_1.Subject();
+        this.playlists$ = this.playlistsSource.asObservable();
     }
-    DataService.prototype.announceCurrentPlaylist = function (currentPlaylist) {
-        this.currentPlaylistSource.next(currentPlaylist);
+    DataService.prototype.announceSelectedPlaylist = function (selectedPlaylist) {
+        this.selectedPlaylistSource.next(selectedPlaylist);
+    };
+    DataService.prototype.announceCurrentSong = function (currentSong) {
+        this.currentSongSource.next(currentSong);
+    };
+    DataService.prototype.announcePlayingPlaylist = function (playingPlaylist) {
+        this.playingPlaylistSource.next(playingPlaylist);
+    };
+    DataService.prototype.announcePlaylists = function (playlists) {
+        this.playlistsSource.next(playlists);
     };
     DataService = __decorate([
         core_1.Injectable(), 

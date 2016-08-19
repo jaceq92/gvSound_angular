@@ -17,13 +17,13 @@
         <div *ngIf="selectedResult != undefined"  class="modal-footer">
                  <form class="addsongform" name="addsongform" id="addsongform" method="post" role="form">
                         <div class="form-group">
-                            <input type="text" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult.song_artist}}" placeholder="Artist" disabled required>
+                            <input type="text" #box (keyup)="finalArtist=box.value" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult.song_artist}}" placeholder="Artist" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="song_name" class="form-control" id="song_name_field" value="{{selectedResult.song_name}}" placeholder="Song Name" disabled required>
+                            <input type="text" name="song_name" #box2 (keyup)="finalSongName=box2.value" class="form-control" id="song_name_field" value="{{selectedResult.song_name}}" placeholder="Song Name" required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" [(ngModel)]="selectedPlaylist" (ngModelChange)="playlistSelect($event)" name="playlistdropdown">
+                            <select class="form-control" [(ngModel)]="insertPlaylist" (ngModelChange)="playlistSelect($event)" name="playlistdropdown">
                                 <option [ngValue]="playlist" *ngFor="let playlist of playlists; let i = index" >
                                     {{playlist.playlist_name}}
                                 </option>
@@ -35,3 +35,4 @@
         </div>
     </div>
 </div>
+<ng2-toasty></ng2-toasty>

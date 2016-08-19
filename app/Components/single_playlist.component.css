@@ -31,12 +31,12 @@ li{
     padding-left: 25px;
 }
 .song_added{
-    width:15%;
+    width:10%;
 }
 .item{
     height: 35vh;
     overflow-y:auto;
-    width:80vw !important;
+    width:80vw;
     overflow-x:hidden;
     margin-left:5px;
     transition: all .5s ease-in-out;

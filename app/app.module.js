@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var app_1 = require('./Components/app');
 var ng2_dnd_1 = require('ng2-dnd/ng2-dnd');
 var http_1 = require('@angular/http');
+var ng2_toasty_1 = require('ng2-toasty/ng2-toasty');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,7 +23,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
             declarations: [app_1.AppComponent],
             bootstrap: [app_1.AppComponent],
-            providers: [http_1.HTTP_PROVIDERS, ng2_dnd_1.DND_PROVIDERS]
+            providers: [http_1.HTTP_PROVIDERS, ng2_dnd_1.DND_PROVIDERS, ng2_toasty_1.ToastyService, ng2_toasty_1.ToastyConfig]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
