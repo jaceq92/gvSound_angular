@@ -14,7 +14,6 @@ var browser_1 = require('@angular/platform-browser/src/facade/browser');
 var BehaviorSubject_1 = require('rxjs/BehaviorSubject');
 var YoutubeService = (function () {
     function YoutubeService() {
-        this.currentPlaylist = [];
         this._stateSource = new BehaviorSubject_1.BehaviorSubject(-1);
         this.state$ = this._stateSource.asObservable();
     }
@@ -50,16 +49,16 @@ var YoutubeService = (function () {
     YoutubeService.prototype.onStateChanged = function (event) {
         this._stateSource.next(event.data);
     };
+    YoutubeService.prototype.stopSong = function () {
+        this.player.stopVideo();
+    };
     YoutubeService.prototype.togglePlay = function () {
-        this.state = this.player.getPlayerState();
-        if (this.state === 1) {
+        if (this.player.getPlayerState() === 1) {
             this.player.pauseVideo();
         }
         else {
             this.player.playVideo();
         }
-    };
-    YoutubeService.prototype.nextSong = function () {
     };
     YoutubeService = __decorate([
         core_1.Injectable(), 

@@ -42,7 +42,9 @@ li{
     transition: all .5s ease-in-out;
     transition-delay: 0.3s;
 }
-
+.icon{
+    width:24px;
+}
 table {
     width:100%;
     border-collapse:collapse;

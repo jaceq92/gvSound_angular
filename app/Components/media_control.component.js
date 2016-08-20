@@ -10,35 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var youtube_service_1 = require('../Services/youtube.service');
+var soundcloud_service_1 = require('../Services/soundcloud.service');
 var data_service_1 = require('../Services/data.service');
 var MediaControlComponent = (function () {
-    function MediaControlComponent(youtubeService, dataService) {
+    function MediaControlComponent(youtubeService, dataService, soundCloudService) {
         var _this = this;
         this.youtubeService = youtubeService;
         this.dataService = dataService;
+        this.soundCloudService = soundCloudService;
         this.isHidden = new core_1.EventEmitter();
         this._isHidden = true;
         this.youtubeService.state$.subscribe(function (state) {
-            _this.state = state;
-            if (state == 1) {
+            _this.youtubeState = state;
+            if (state == 1 || _this.soundcloudState == 1) {
                 _this.playButtonToggle = "pause_circle_outline";
             }
             else {
                 _this.playButtonToggle = "play_circle_outline";
             }
         });
-        this.dataService.currentSong$.subscribe(function (currentSong) {
-            _this.currentSong = currentSong;
+        this.soundCloudService.scPlayerState$.subscribe(function (scPlayerState) {
+            _this.soundcloudState = scPlayerState;
+            if (_this.youtubeState == 1 || _this.soundcloudState == 1) {
+                _this.playButtonToggle = "pause_circle_outline";
+            }
+            else {
+                _this.playButtonToggle = "play_circle_outline";
+            }
         });
-        this.dataService.playingPlaylist$.subscribe(function (playingPlaylist) {
-            _this.playingPlaylist = playingPlaylist;
-        });
+        this.dataService.currentSong$.subscribe(function (currentSong) { _this.currentSong = currentSong; });
+        this.dataService.playingPlaylist$.subscribe(function (playingPlaylist) { _this.playingPlaylist = playingPlaylist; });
     }
     MediaControlComponent.prototype.ngOnLoaded = function () {
         this.isHidden.emit(this._isHidden);
     };
     MediaControlComponent.prototype.togglePlay = function () {
-        this.youtubeService.togglePlay();
+        if (this.currentSong.source == "youtube") {
+            this.youtubeService.togglePlay();
+        }
+        if (this.currentSong.source == "soundcloud") {
+            this.soundCloudService.togglePlay();
+        }
     };
     MediaControlComponent.prototype.nextSong = function () {
         if (this.playingPlaylist == undefined) {
@@ -48,7 +60,16 @@ var MediaControlComponent = (function () {
         if (this.indexOfNext >= this.playingPlaylist.songs.length) {
             this.indexOfNext = 0;
         }
-        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        if (this.playingPlaylist.songs[this.indexOfNext].source == 'youtube') {
+            this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+            if (this.soundCloudService.scPlayer != undefined) {
+                this.soundCloudService.pause();
+            }
+        }
+        else {
+            this.soundCloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNext]);
+            this.youtubeService.stopSong();
+        }
         this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
     };
     MediaControlComponent.prototype.previousSong = function () {
@@ -59,7 +80,16 @@ var MediaControlComponent = (function () {
         if (this.indexOfNext < 0) {
             this.indexOfNext = 0;
         }
-        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        if (this.playingPlaylist.songs[this.indexOfNext].source == 'youtube') {
+            this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+            if (this.soundCloudService.scPlayer != undefined) {
+                this.soundCloudService.pause();
+            }
+        }
+        else {
+            this.soundCloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNext]);
+            this.youtubeService.stopSong();
+        }
         this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
     };
     MediaControlComponent.prototype.togglePlayer = function () {
@@ -72,6 +102,12 @@ var MediaControlComponent = (function () {
             this.isHidden.emit(this._isHidden);
         }
     };
+    MediaControlComponent.prototype.openSoundCloud = function () {
+        window.open("https://www.soundcloud.com");
+    };
+    MediaControlComponent.prototype.openYoutube = function () {
+        window.open("https://www.youtube.com");
+    };
     MediaControlComponent = __decorate([
         core_1.Component({
             selector: 'media-control',
@@ -79,7 +115,7 @@ var MediaControlComponent = (function () {
             styleUrls: ['app/Components/media_control.component.css'],
             outputs: ['isHidden']
         }), 
-        __metadata('design:paramtypes', [youtube_service_1.YoutubeService, data_service_1.DataService])
+        __metadata('design:paramtypes', [youtube_service_1.YoutubeService, data_service_1.DataService, soundcloud_service_1.SoundCloudService])
     ], MediaControlComponent);
     return MediaControlComponent;
 }());

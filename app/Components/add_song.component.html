@@ -5,8 +5,13 @@
             <div class="modal-header">
                 <button type="button" class="close" (click)="hideAddSongModal()" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add Song</h4>
+                <div class="radio">
+                    <label class="radio-inline"><input (click)="searchYoutube()" type="radio" name="optradio">Youtube</label>
+                    <label class="radio-inline"><input (click)="searchSoundCloud()" type="radio" name="optradio">SoundCloud</label>
+                </div>
             </div>
-            <div class="modal-body">
+
+            <div *ngIf="searchType == 'youtube'" class="modal-body">
                 <ul class="list-group">
                     <li *ngFor="let song of searchResults; let i = index" class="list-group-item" role="button" (click)="onSelect(song)"
                     [class.selected]="song === selectedResult" >
@@ -14,7 +19,16 @@
                     </li>
                 </ul>
             </div>
-        <div *ngIf="selectedResult != undefined"  class="modal-footer">
+            <div *ngIf="searchType == 'soundcloud'" class="modal-body">
+                <ul class="list-group">
+                    <li *ngFor="let song of searchResults; let i = index" class="list-group-item" role="button" (click)="onSelect(song)"
+                    [class.selected]="song === selectedResult" >
+                    <a>{{song.title}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="selectedResult != undefined"  class="modal-footer">
                  <form class="addsongform" name="addsongform" id="addsongform" method="post" role="form">
                         <div class="form-group">
                             <input type="text" #box (keyup)="finalArtist=box.value" name="song_artist" class="form-control" id="song_artist_field" value="{{selectedResult.song_artist}}" placeholder="Artist" required>

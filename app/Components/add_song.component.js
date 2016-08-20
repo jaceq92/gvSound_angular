@@ -22,6 +22,14 @@ var AddSongComponent = (function () {
         this.playlists = [];
         this.dataService.selectedPlaylist$.subscribe(function (currentPlaylist) { _this.selectedPlaylist = currentPlaylist; });
     }
+    AddSongComponent.prototype.searchYoutube = function () {
+        this.searchType = "youtube";
+        this.getSearchResults(this.keyword);
+    };
+    AddSongComponent.prototype.searchSoundCloud = function () {
+        this.searchType = "soundcloud";
+        this.getSearchResults(this.keyword);
+    };
     AddSongComponent.prototype.onSelect = function (song) {
         this.selectedResult = song;
         if (this.selectedResult.title.includes("-")) {
@@ -35,9 +43,9 @@ var AddSongComponent = (function () {
     };
     AddSongComponent.prototype.showAddSongModal = function (keyword) {
         this.keyword = keyword;
-        this.getSearchResults(keyword);
         this.getPlaylists();
         this.AddSongModalIsVisible = true;
+        this.searchType = undefined;
     };
     AddSongComponent.prototype.hideAddSongModal = function () {
         this.AddSongModalIsVisible = false;
@@ -45,7 +53,12 @@ var AddSongComponent = (function () {
     };
     AddSongComponent.prototype.getSearchResults = function (keyword) {
         var _this = this;
-        this.playlistService.getYoutubeSearchResults(keyword).subscribe(function (searchResults) { _this.searchResults = searchResults; });
+        if (this.searchType == 'youtube') {
+            this.playlistService.getYoutubeSearchResults(keyword).subscribe(function (searchResults) { _this.searchResults = searchResults; });
+        }
+        if (this.searchType == 'soundcloud') {
+            this.playlistService.getSoundCloudSearchResults(keyword).subscribe(function (searchResults) { _this.searchResults = searchResults; });
+        }
     };
     AddSongComponent.prototype.getPlaylists = function () {
         var _this = this;

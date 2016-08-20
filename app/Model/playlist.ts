@@ -13,4 +13,6 @@ export class Song {
   song_url: string;
   song_added: Date;
   username: string;
+  source: string;
+  permaurl:string;
 }

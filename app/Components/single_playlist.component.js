@@ -10,26 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var playlist_service_1 = require('../Services/playlist.service');
-var ng2_dnd_1 = require('ng2-dnd/ng2-dnd');
 var youtube_service_1 = require('../Services/youtube.service');
 var data_service_1 = require('../Services/data.service');
+var soundcloud_service_1 = require('../Services/soundcloud.service');
+var ng2_dnd_1 = require('ng2-dnd/ng2-dnd');
 var ng2_toasty_1 = require('ng2-toasty/ng2-toasty');
 var angular2_contextmenu_1 = require('angular2-contextmenu/angular2-contextmenu');
+var browser_1 = require('@angular/platform-browser/src/facade/browser');
 var PlaylistComponent = (function () {
-    function PlaylistComponent(playlistService, contextMenuService, dataService, toastyService, youtubeService) {
+    function PlaylistComponent(playlistService, contextMenuService, dataService, toastyService, youtubeService, soundcloudService) {
         var _this = this;
         this.playlistService = playlistService;
         this.contextMenuService = contextMenuService;
         this.dataService = dataService;
         this.toastyService = toastyService;
         this.youtubeService = youtubeService;
+        this.soundcloudService = soundcloudService;
         this.playlist = [];
         this.youtubeService.state$.subscribe(function (state) {
-            _this.state = state;
             if (state == 0) {
                 _this.indexOfNextSong = _this.playingPlaylist.songs.indexOf(_this.selectedSong) + 1;
-                _this.youtubeService.playSong(_this.playingPlaylist.songs[_this.indexOfNextSong].song_url);
-                _this.selectedSong = _this.playingPlaylist.songs[_this.indexOfNextSong];
+                if (_this.playingPlaylist.songs[_this.indexOfNextSong].source == 'youtube') {
+                    _this.youtubeService.playSong(_this.playingPlaylist.songs[_this.indexOfNextSong].song_url);
+                }
+                else {
+                    _this.soundcloudService.playNewSong(_this.playingPlaylist.songs[_this.indexOfNextSong]);
+                }
+                _this.dataService.announceCurrentSong(_this.playingPlaylist.songs[_this.indexOfNextSong]);
+            }
+        });
+        this.soundcloudService.scPlayerState$.subscribe(function (scPlayerState) {
+            if (scPlayerState == 0) {
+                _this.indexOfNextSong = _this.playingPlaylist.songs.indexOf(_this.selectedSong) + 1;
+                if (_this.playingPlaylist.songs[_this.indexOfNextSong].source == 'youtube') {
+                    _this.youtubeService.playSong(_this.playingPlaylist.songs[_this.indexOfNextSong].song_url);
+                }
+                else {
+                    _this.soundcloudService.playNewSong(_this.playingPlaylist.songs[_this.indexOfNextSong]);
+                }
+                _this.dataService.announceCurrentSong(_this.playingPlaylist.songs[_this.indexOfNextSong]);
             }
         });
         this.dataService.currentSong$.subscribe(function (currentSong) { _this.selectedSong = currentSong; });
@@ -38,6 +57,7 @@ var PlaylistComponent = (function () {
             _this.selectedPlaylist = selectedPlaylist;
             _this.getPlaylist(_this.selectedPlaylist.playlist_id);
         });
+        this.soundcloudService.scPlayerState$.subscribe(function (scPlayerState) { _this.scPlayerState = scPlayerState; });
     }
     PlaylistComponent.prototype.addToast = function (type, title, message) {
         var toastOptions = {
@@ -55,7 +75,16 @@ var PlaylistComponent = (function () {
     };
     PlaylistComponent.prototype.onSelect = function (song) {
         this.selectedSong = song;
-        this.youtubeService.playSong(this.selectedSong.song_url);
+        if (this.selectedSong.source == 'youtube') {
+            if (this.scPlayerState == 1) {
+                this.soundcloudService.pause();
+            }
+            this.youtubeService.playSong(this.selectedSong.song_url);
+        }
+        if (this.selectedSong.source == 'soundcloud') {
+            this.youtubeService.stopSong();
+            this.soundcloudService.playNewSong(this.selectedSong);
+        }
         this.dataService.announceCurrentSong(this.selectedSong);
         this.dataService.announcePlayingPlaylist(this.selectedPlaylist);
     };
@@ -79,6 +108,14 @@ var PlaylistComponent = (function () {
             }
         });
     };
+    PlaylistComponent.prototype.openSourcePage = function (song) {
+        if (song.source == 'soundcloud') {
+            browser_1.window.open(song.permaurl);
+        }
+        if (song.source == 'youtube') {
+            browser_1.window.open("https://www.youtube.com/watch?v=" + song.song_url);
+        }
+    };
     PlaylistComponent.prototype.deleteSong = function (song) {
         var _this = this;
         this.playlistService.deleteSong(song.id).then(function (res) {
@@ -89,8 +126,7 @@ var PlaylistComponent = (function () {
     PlaylistComponent.prototype.onContextMenu = function ($event, item) {
         var _this = this;
         this.contextMenuService.show.next({
-            actions: [
-                {
+            actions: [{
                     html: function () { return "Delete " + item.song_artist + " - " + item.song_name; },
                     click: function (item) {
                         if (item.username == "JSK") {
@@ -118,7 +154,7 @@ var PlaylistComponent = (function () {
             directives: [ng2_dnd_1.DND_DIRECTIVES, ng2_toasty_1.Toasty, angular2_contextmenu_1.ContextMenuComponent],
             providers: [playlist_service_1.PlaylistService, ng2_dnd_1.DND_PROVIDERS, angular2_contextmenu_1.ContextMenuService],
         }), 
-        __metadata('design:paramtypes', [playlist_service_1.PlaylistService, angular2_contextmenu_1.ContextMenuService, data_service_1.DataService, ng2_toasty_1.ToastyService, youtube_service_1.YoutubeService])
+        __metadata('design:paramtypes', [playlist_service_1.PlaylistService, angular2_contextmenu_1.ContextMenuService, data_service_1.DataService, ng2_toasty_1.ToastyService, youtube_service_1.YoutubeService, soundcloud_service_1.SoundCloudService])
     ], PlaylistComponent);
     return PlaylistComponent;
 }());

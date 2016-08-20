@@ -1,11 +1,14 @@
 import {Component, OnInit, Output, EventEmitter, Input, SimpleChanges, ViewChild }from '@angular/core'; 
-import {PlaylistService }from '../Services/playlist.service'; 
-import {Playlist }from '../Model/playlist'; 
-import { DataService} from '../Services/data.service';
+
+import {PlaylistService }from '../Services/playlist.service';
+import {DataService} from '../Services/data.service';
+
+import {Playlist }from '../Model/playlist';
+
 import { AddPlaylistComponent } from '../Components/add_playlist.component';
+
 import { ContextMenuComponent, ContextMenuService } from 'angular2-contextmenu/angular2-contextmenu';
 import {ToastyService, ToastyConfig, Toasty, ToastOptions, ToastData} from 'ng2-toasty/ng2-toasty';
-
 
 
 @Component( {

@@ -23,10 +23,20 @@ export class AddSongComponent {
     private date;
     finalArtist:string;
     finalSongName:string;
+    searchType:string;
 
     constructor (private playlistService:PlaylistService , private dataService: DataService, private toastyService: ToastyService) {
         this.dataService.selectedPlaylist$.subscribe(
             currentPlaylist => {this.selectedPlaylist = currentPlaylist;});
+    }
+
+    searchYoutube(){
+        this.searchType="youtube";
+        this.getSearchResults(this.keyword); 
+    }
+    searchSoundCloud(){
+        this.searchType="soundcloud";
+        this.getSearchResults(this.keyword); 
     }
 
     onSelect(song:Song) {
@@ -43,9 +53,9 @@ export class AddSongComponent {
 
     showAddSongModal(keyword:string) {
         this.keyword = keyword; 
-        this.getSearchResults(keyword); 
         this.getPlaylists(); 
         this.AddSongModalIsVisible = true;
+        this.searchType = undefined;
     }
 
     hideAddSongModal() {
@@ -53,8 +63,13 @@ export class AddSongComponent {
         this.selectedResult = undefined;
     }
     getSearchResults(keyword:string) {
+        if (this.searchType == 'youtube'){
         this.playlistService.getYoutubeSearchResults(keyword).subscribe(
+            searchResults =>  {this.searchResults = searchResults; })}
+        if (this.searchType == 'soundcloud'){
+        this.playlistService.getSoundCloudSearchResults(keyword).subscribe(
             searchResults =>  {this.searchResults = searchResults; })
+        }
     }
     getPlaylists() {
           this.playlistService.getPlaylists().subscribe(playlists =>  {

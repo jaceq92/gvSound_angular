@@ -1,7 +1,6 @@
 /// <reference path="../../typings/globals/youtube/index.d.ts" />
 import { Injectable }     from '@angular/core';
 import { window }from '@angular/platform-browser/src/facade/browser';
-import { Subject }    from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Playlist, Song } from '../Model/playlist';
 
@@ -10,9 +9,7 @@ import { Playlist, Song } from '../Model/playlist';
 export class YoutubeService {
     constructor () {}
     public player:YT.Player;
-    public state:number;
-    currentPlaylist:Array < Song >  = [];
-    currentSong: Song;
+
     private _stateSource = new BehaviorSubject<number>(-1);
     state$ = this._stateSource.asObservable();
 
@@ -43,18 +40,17 @@ export class YoutubeService {
         this.player.loadVideoById(song_url, 0, "highres"); 
     }
     onStateChanged(event) {
-            this._stateSource.next(event.data);
+        this._stateSource.next(event.data);
+    }
+    stopSong(){
+        this.player.stopVideo();
     }
     togglePlay(){
-        this.state = this.player.getPlayerState();
-        if (this.state === 1){
+        if (this.player.getPlayerState() === 1){
             this.player.pauseVideo();
         }
         else{
             this.player.playVideo();
         }
-    }
-    nextSong(){
-        
     }
 }

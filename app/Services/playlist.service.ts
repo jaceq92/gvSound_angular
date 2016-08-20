@@ -14,7 +14,7 @@ export class PlaylistService {
      // Resolve HTTP using the constructor
      constructor (private http: Http) {}
      // private instance variable to hold base url
-     private Url = '/api/';
+     private Url = 'http://localhost:15044/api/';
 
     getPlaylists() : Observable<Playlist[]> {
             return this.http.get(this.Url + "getplaylists/JSK")
@@ -38,6 +38,14 @@ export class PlaylistService {
                          //...errors if any
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
      }
+     getSoundCloudSearchResults(keyword:string) : Observable<Song[]>{
+         return this.http.get(this.Url + "searchsoundcloud/" + keyword)
+                        // ...and calling .json() on the response to return data
+                         .map((res:Response) => res.json())
+                         //...errors if any
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+     }
+
      addSong (body: Song, username:string, playlist_id:number): Promise<Song> {
         let bodyString = JSON.stringify(body); // Stringify payload
         let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON

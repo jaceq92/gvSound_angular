@@ -1,9 +1,10 @@
 import {Component, Output, EventEmitter }from '@angular/core'; 
 import {bootstrap }from '@angular/platform-browser-dynamic'; 
-import {YoutubeService }from '../Services/youtube.service'; 
+import {YoutubeService }from '../Services/youtube.service';
+import {SoundCloudService }from '../Services/soundcloud.service';
+
 import { DataService } from '../Services/data.service';
 import { Song, Playlist } from '../Model/playlist';
-
 
 @Component( {
   selector:'media-control', 
@@ -13,7 +14,6 @@ import { Song, Playlist } from '../Model/playlist';
 })
 export class MediaControlComponent {
   componentName:'MediaControlComponent'; 
-  state:number; 
   playButtonToggle:string;
   currentSong:Song;
   playingPlaylist: Playlist;
@@ -21,27 +21,40 @@ export class MediaControlComponent {
   _isHidden: boolean = true;
   indexOfNext: number;
 
-  constructor(private youtubeService:YoutubeService, private dataService: DataService) {
+  youtubeState: number;
+  soundcloudState: number;
+
+  constructor(private youtubeService:YoutubeService, private dataService: DataService, private soundCloudService: SoundCloudService) {
     this.youtubeService.state$.subscribe(
-      state =>  {this.state = state;
-                if (state == 1) {
-                  this.playButtonToggle = "pause_circle_outline"; }
-                else {
-                  this.playButtonToggle = "play_circle_outline"; }
-                });
+      state =>  { this.youtubeState = state;
+                if (state == 1 || this.soundcloudState == 1){
+                  this.playButtonToggle = "pause_circle_outline";}
+                  else{
+                    this.playButtonToggle = "play_circle_outline"; }});
+
+    this.soundCloudService.scPlayerState$.subscribe(
+      scPlayerState => { this.soundcloudState = scPlayerState;
+                          if (this.youtubeState == 1 || this.soundcloudState == 1){
+                              this.playButtonToggle = "pause_circle_outline";}
+                              else{
+                                this.playButtonToggle = "play_circle_outline"; }});
+
     this.dataService.currentSong$.subscribe(
-      currentSong => {
-        this.currentSong = currentSong;
-      });
+      currentSong => { this.currentSong = currentSong;});
+
     this.dataService.playingPlaylist$.subscribe(
-      playingPlaylist =>{ this.playingPlaylist = playingPlaylist;
-      });
+      playingPlaylist =>{ this.playingPlaylist = playingPlaylist;});
   }
   ngOnLoaded(){
     this.isHidden.emit(this._isHidden);
   }
   togglePlay() {
-    this.youtubeService.togglePlay(); 
+    if (this.currentSong.source == "youtube"){
+        this.youtubeService.togglePlay();
+    }
+    if (this.currentSong.source == "soundcloud"){
+      this.soundCloudService.togglePlay();
+    }
   }
   nextSong(){
     if (this.playingPlaylist == undefined){
@@ -51,7 +64,16 @@ export class MediaControlComponent {
     if (this.indexOfNext >= this.playingPlaylist.songs.length){
       this.indexOfNext = 0;
     }
-    this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+    if (this.playingPlaylist.songs[this.indexOfNext].source == 'youtube') {
+        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        if(this.soundCloudService.scPlayer != undefined){
+            this.soundCloudService.pause();}
+    }
+    else {
+        this.soundCloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNext]);
+        this.youtubeService.stopSong();
+    }
+    
     this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
   }
   previousSong(){
@@ -62,7 +84,16 @@ export class MediaControlComponent {
     if (this.indexOfNext < 0){
       this.indexOfNext = 0;
     }
-    this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+    if (this.playingPlaylist.songs[this.indexOfNext].source == 'youtube') {
+        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNext].song_url);
+        if(this.soundCloudService.scPlayer != undefined){
+            this.soundCloudService.pause();}
+    }
+    else {
+        this.soundCloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNext]);
+        this.youtubeService.stopSong();
+    }
+
     this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
   }
   togglePlayer(){
@@ -74,5 +105,11 @@ export class MediaControlComponent {
       this._isHidden = true;
       this.isHidden.emit(this._isHidden);
     }
+  }
+  openSoundCloud(){
+    window.open("https://www.soundcloud.com");
+  }
+  openYoutube(){
+    window.open("https://www.youtube.com");
   }
 }
