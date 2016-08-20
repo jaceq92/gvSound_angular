@@ -1,4 +1,4 @@
-# gvSound_angular
+# GVSound
 
 ## Description
 gvSound is a modern multimedia site created with Angular 2. gvSound tries to make it easy to access content on various sites like Youtube
