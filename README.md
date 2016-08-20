@@ -1,6 +1,6 @@
 # gvSound_angular
 
-# Features
+## Features
 - Add content from Youtube and SoundCloud with a custom made search tool
 - Form playlists where you can mix content from both Youtube and SoundCloud
 - Drag'n'Drop songs to make your own queues in a playlist
