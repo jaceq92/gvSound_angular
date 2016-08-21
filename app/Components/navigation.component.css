@@ -22,7 +22,17 @@ li a {
 li a:hover {
     background-color: #91d0e5;
 }
-
+@media screen and (max-width: 480px) {
+    .btn.btn-default{
+        display:none;
+    }
+    .navbar-form.navbar-right{
+        display:none;
+    }
+    .navbar-form.navbar-left{
+        border:none;
+    }
+}
 .mybar{
     width:100%;
     margin-top:0px !important;

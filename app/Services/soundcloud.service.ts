@@ -1,3 +1,5 @@
+declare var SC: any;
+
 import { Injectable } from '@angular/core';
 import { Song } from '../Model/playlist';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -8,8 +10,6 @@ export class SoundCloudService {
 	public scPlayer: any;
 	private scPlayerStateSource = new BehaviorSubject<number>(2);
     scPlayerState$ = this.scPlayerStateSource.asObservable();
-
-	//Visual Studio Code gives error from SC. methods but still work as intended. It uses the script loaded in index.html
 
 	setupPlayer(){
 		SC.initialize({

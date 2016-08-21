@@ -49,11 +49,13 @@ export class MediaControlComponent {
     this.isHidden.emit(this._isHidden);
   }
   togglePlay() {
-    if (this.currentSong.source == "youtube"){
-        this.youtubeService.togglePlay();
-    }
-    if (this.currentSong.source == "soundcloud"){
-      this.soundCloudService.togglePlay();
+    if (this.currentSong != undefined){
+      if (this.currentSong.source == "youtube"){
+          this.youtubeService.togglePlay();
+      }
+      if (this.currentSong.source == "soundcloud"){
+        this.soundCloudService.togglePlay();
+      }
     }
   }
   nextSong(){

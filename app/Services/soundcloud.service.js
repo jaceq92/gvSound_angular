@@ -15,7 +15,6 @@ var SoundCloudService = (function () {
         this.scPlayerStateSource = new BehaviorSubject_1.BehaviorSubject(2);
         this.scPlayerState$ = this.scPlayerStateSource.asObservable();
     }
-    //Visual Studio Code gives error from SC. methods but still work as intended. It uses the script loaded in index.html
     SoundCloudService.prototype.setupPlayer = function () {
         SC.initialize({
             client_id: '18f08ce72fcb14af64a3bbcd03b4bcb1' });

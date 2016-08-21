@@ -24,14 +24,20 @@ li{
 .artist{
     width:42.5%;
     padding-left:5px;
+    white-space: nowrap;
+    overflow:hidden;
 }
 .song_name{
     width:42.5%;
     padding-right: 25px;
     padding-left: 25px;
+    white-space: nowrap;
+    overflow:hidden;
 }
 .song_added{
-    width:10%;
+    padding-left: 5px;
+    width:7.5%;
+    overflow:hidden;
 }
 .item{
     height: 35vh;
@@ -44,6 +50,28 @@ li{
 }
 .icon{
     width:24px;
+    padding-left:10px;
+}
+@media screen and (max-width: 480px) {
+    .icon{
+       display:none
+    }
+    .song_added{
+       display:none
+    }
+    .song_name{
+        width:57.5%;
+    }
+    .item{
+       margin-top:4vh;
+       height:55vh !important;
+       width: 100vw !important;
+       margin-left:0px !important;
+       transition:none;
+    }
+    li{
+        height:5vh;
+    }
 }
 table {
     width:100%;

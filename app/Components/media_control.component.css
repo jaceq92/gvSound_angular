@@ -45,3 +45,18 @@ li a:hover {
     cursor:default;
     white-space: nowrap;
 }
+@media screen and (max-width: 480px) {
+    .nowplaying{
+        display: none;
+    }
+    .ad{
+         display: none;
+    }
+    .showVideo{
+        display:none;
+    }
+    ul{
+        display: flex;
+        justify-content: center;
+    }
+}

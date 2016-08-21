@@ -9,15 +9,14 @@ li{
         -o-user-select: none;
         margin-top:4px;
         border-radius:5px;
+        padding-left:5px !important;
         transition: all .2s ease-in-out;
         font-size: small;
 }
 li a{
-     padding-left:5px;
      color:black;
 }
 li a:hover{
-     padding-left:5px;
      color:black;
      text-decoration: none;
 }
@@ -37,8 +36,17 @@ li:hover{
     height: 35vh;
     overflow-y:auto;
     width:10vw;
-        transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
     transition-delay: 0.3s;
+}
+@media screen and (max-width: 480px) {
+    .item{
+       height:15vh !important;
+       width: 100vw !important;
+    }
+    li{
+        height:5vh;
+    }
 }
 .addplaylist{
         margin-top:10px;

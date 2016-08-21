@@ -45,11 +45,13 @@ var MediaControlComponent = (function () {
         this.isHidden.emit(this._isHidden);
     };
     MediaControlComponent.prototype.togglePlay = function () {
-        if (this.currentSong.source == "youtube") {
-            this.youtubeService.togglePlay();
-        }
-        if (this.currentSong.source == "soundcloud") {
-            this.soundCloudService.togglePlay();
+        if (this.currentSong != undefined) {
+            if (this.currentSong.source == "youtube") {
+                this.youtubeService.togglePlay();
+            }
+            if (this.currentSong.source == "soundcloud") {
+                this.soundCloudService.togglePlay();
+            }
         }
     };
     MediaControlComponent.prototype.nextSong = function () {

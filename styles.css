@@ -30,8 +30,13 @@ overflow-y: hidden;
 
 @media screen and (max-width: 480px) {
     body {
-        overflow-y: scroll;
+        overflow: hidden;
     }
+
+    ::-webkit-scrollbar { 
+    display: none; 
+    }
+
     .item{
         width:95vw!important;
     }
