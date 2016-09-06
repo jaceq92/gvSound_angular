@@ -102,7 +102,7 @@ export class PlaylistComponent implements OnChanges {
        }
        if (this.selectedSong.source == 'soundcloud') {
           this.youtubeService.stopSong(); 
-          this.soundcloudService.playNewSong(this.selectedSong); 
+          this.soundcloudService.playNewSong(this.selectedSong);
        }
        this.dataService.announceCurrentSong(this.selectedSong); 
        this.dataService.announcePlayingPlaylist(this.selectedPlaylist); 

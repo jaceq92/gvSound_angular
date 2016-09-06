@@ -81,9 +81,9 @@ table {
 }
 
 .dnd-drag-start {
-    -moz-transform:scale(0.9);
-    -webkit-transform:scale(0.9);
-    transform:scale(0.9);
+    -moz-transform:scale(0.97);
+    -webkit-transform:scale(0.97);
+    transform:scale(0.97);
     opacity:0.7;
     border: 2px solid #000;
     border-radius:5px;
@@ -101,9 +101,9 @@ table {
 
 .dnd-sortable-drag {
    border-radius:5px;
-  -moz-transform:scale(0.9);
-  -webkit-transform:scale(0.9);
-  transform:scale(0.9);
+  -moz-transform:scale(0.97);
+  -webkit-transform:scale(0.97);
+  transform:scale(0.97);
   opacity:0.7;
   border: 1px solid #000;
 }

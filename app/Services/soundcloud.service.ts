@@ -17,38 +17,29 @@ export class SoundCloudService {
 	}
 
     playNewSong(song: Song) {
-		try {
 		if (this.scPlayer != undefined){
 			this.scPlayer.dispose();
 		}
+
 		SC.stream('/tracks/' + song.song_url.toString())
-				.then( player => {
+				.then(player => {
 					this.scPlayer = player;
+					if (this.scPlayer.options.protocols[0] === 'rtmp') {
+        				this.scPlayer.options.protocols.splice(0, 1);
+    				}
 					this.play();
 					this.scPlayer.on('finish', () => this.scPlayerStateSource.next(0));
 				});
 	}
-	catch(error){
-		console.log(error);
-		}
-	}
 
 	play() {
-		try{
 		this.scPlayer.play();
-        this.scPlayerStateSource.next(1);
-		}catch(error){
-			console.log(error)
-		} // 1 = playing
+        this.scPlayerStateSource.next(1); // 1 = playing
 	}
 
 	pause() {
-		try{
 		this.scPlayer.pause();
         this.scPlayerStateSource.next(2); // 2 = paused
-		}catch(error){
-			console.log(error)
-		}
 	}
 
 	togglePlay(){

@@ -21,38 +21,26 @@ var SoundCloudService = (function () {
     };
     SoundCloudService.prototype.playNewSong = function (song) {
         var _this = this;
-        try {
-            if (this.scPlayer != undefined) {
-                this.scPlayer.dispose();
+        if (this.scPlayer != undefined) {
+            this.scPlayer.dispose();
+        }
+        SC.stream('/tracks/' + song.song_url.toString())
+            .then(function (player) {
+            _this.scPlayer = player;
+            if (_this.scPlayer.options.protocols[0] === 'rtmp') {
+                _this.scPlayer.options.protocols.splice(0, 1);
             }
-            SC.stream('/tracks/' + song.song_url.toString())
-                .then(function (player) {
-                _this.scPlayer = player;
-                _this.play();
-                _this.scPlayer.on('finish', function () { return _this.scPlayerStateSource.next(0); });
-            });
-        }
-        catch (error) {
-            console.log(error);
-        }
+            _this.play();
+            _this.scPlayer.on('finish', function () { return _this.scPlayerStateSource.next(0); });
+        });
     };
     SoundCloudService.prototype.play = function () {
-        try {
-            this.scPlayer.play();
-            this.scPlayerStateSource.next(1);
-        }
-        catch (error) {
-            console.log(error);
-        } // 1 = playing
+        this.scPlayer.play();
+        this.scPlayerStateSource.next(1); // 1 = playing
     };
     SoundCloudService.prototype.pause = function () {
-        try {
-            this.scPlayer.pause();
-            this.scPlayerStateSource.next(2); // 2 = paused
-        }
-        catch (error) {
-            console.log(error);
-        }
+        this.scPlayer.pause();
+        this.scPlayerStateSource.next(2); // 2 = paused
     };
     SoundCloudService.prototype.togglePlay = function () {
         if (this.scPlayer._isPlaying == true) {
