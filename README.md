@@ -10,4 +10,13 @@ and Soundcloud. Our second goal is to make it easy to share this content with yo
 - Drag'n'Drop songs to make your own queues in a playlist
 - Toggle video when playing Youtube content and even go fullscreen!
 
+## ToDo
+- SoundCloud playback currently works in Chrome for some mysterious reason.
+- Add login functionality.
+- Better media control. Volume slider, progress slider etc.
+- And a lot of other things.
+
+
+
 Demo version is available on: http://gvdev.azurewebsites.net/
+
