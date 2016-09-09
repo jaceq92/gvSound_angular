@@ -32,11 +32,11 @@ export class AddSongComponent {
 
     searchYoutube(){
         this.searchType="youtube";
-        this.getSearchResults(this.keyword); 
+        this.getSearchResults(); 
     }
     searchSoundCloud(){
         this.searchType="soundcloud";
-        this.getSearchResults(this.keyword); 
+        this.getSearchResults(); 
     }
 
     onSelect(song:Song) {
@@ -55,19 +55,20 @@ export class AddSongComponent {
         this.keyword = keyword; 
         this.getPlaylists(); 
         this.AddSongModalIsVisible = true;
-        this.searchType = undefined;
+        this.searchType = "youtube";
+        this.searchYoutube();
     }
 
     hideAddSongModal() {
         this.AddSongModalIsVisible = false; 
         this.selectedResult = undefined;
     }
-    getSearchResults(keyword:string) {
+    getSearchResults() {
         if (this.searchType == 'youtube'){
-        this.playlistService.getYoutubeSearchResults(keyword).subscribe(
+        this.playlistService.getYoutubeSearchResults(this.keyword).subscribe(
             searchResults =>  {this.searchResults = searchResults; })}
         if (this.searchType == 'soundcloud'){
-        this.playlistService.getSoundCloudSearchResults(keyword).subscribe(
+        this.playlistService.getSoundCloudSearchResults(this.keyword).subscribe(
             searchResults =>  {this.searchResults = searchResults; })
         }
     }

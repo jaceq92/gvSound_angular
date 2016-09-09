@@ -35,3 +35,6 @@ li:hover{
 .selected a{
     color:white !important;
 }
+.modal-header{
+    padding-bottom:5px;
+}
