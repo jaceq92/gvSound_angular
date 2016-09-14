@@ -11,7 +11,9 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PlaylistService {
+     // Resolve HTTP using the constructor
      constructor (private http: Http) {}
+     // private instance variable to hold base url
      private Url = '/api/';
 
     getPlaylists() : Observable<Playlist[]> {

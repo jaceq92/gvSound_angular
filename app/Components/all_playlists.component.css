@@ -32,9 +32,6 @@ li:hover{
 .selected a{
     color:white !important;
 }
-.list-group-item{
-    border:none;
-}
 .item{
     height: 35vh;
     overflow-y:auto;

@@ -3,14 +3,12 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background-color: #add8e6;
     text-align: center;
 }
 
 li {
     float: left;
-}
-.navbar{
-        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 li a {
@@ -35,7 +33,17 @@ li a:hover {
         border:none;
     }
 }
-
+.mybar{
+    width:100%;
+    margin-top:0px !important;
+}
+.searchinput{
+    border-radius: 5px;
+    color:black;
+   padding: 3px 6px;
+   border:none;
+   font-size: small;
+}
 .nohover:hover{
     background-color: transparent !important;
 }

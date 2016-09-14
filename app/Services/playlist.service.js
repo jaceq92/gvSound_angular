@@ -15,8 +15,10 @@ var Rx_1 = require('rxjs/Rx');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var PlaylistService = (function () {
+    // Resolve HTTP using the constructor
     function PlaylistService(http) {
         this.http = http;
+        // private instance variable to hold base url
         this.Url = '/api/';
     }
     PlaylistService.prototype.getPlaylists = function () {
