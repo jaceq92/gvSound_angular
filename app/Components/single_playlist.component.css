@@ -39,6 +39,9 @@ li{
     width:7.5%;
     overflow:hidden;
 }
+.list-group-item{
+    border:none;
+}
 .item{
     height: 35vh;
     overflow-y:auto;
@@ -85,17 +88,14 @@ table {
     -webkit-transform:scale(0.97);
     transform:scale(0.97);
     opacity:0.7;
-    border: 2px solid #000;
     border-radius:5px;
 }
 .dnd-drag-enter {
     opacity:0.7;
-    border: 2px solid #000;
     border-radius:5px;
 }
 
 .dnd-drag-over {
-    border: 2px solid #000;
     border-radius:5px;
 }
 
@@ -105,5 +105,4 @@ table {
   -webkit-transform:scale(0.97);
   transform:scale(0.97);
   opacity:0.7;
-  border: 1px solid #000;
 }
