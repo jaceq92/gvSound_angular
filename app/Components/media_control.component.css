@@ -3,10 +3,12 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #363636;
+    background-color: #7998a2;
     position: fixed;
     bottom: 0;
     width:100% !important;
+
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2), 20px 20px 20px 20px rgba(0, 0, 0, 0.19);
 }
 
 li {
@@ -28,7 +30,7 @@ li a {
 }
 
 li a:hover {
-    background-color: #131313;
+    background-color: #3d4649;
 }
 .mybar{
     width:100% !important;
@@ -39,7 +41,7 @@ li a:hover {
     overflow:hidden;
 }
 .nowplaying a:hover{
-    background-color: #363636 !important;
+    background-color: #7998a2 !important;
 }
 .nowplaying a{
     cursor:default;

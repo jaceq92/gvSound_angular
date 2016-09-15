@@ -43,7 +43,7 @@ export class PlaylistsComponent implements OnInit {
         if(changes['playerHidden'] != undefined){
           this.playerHidden = changes['playerHidden'].currentValue;
           if (this.playerHidden == true){
-            this.height="75vh";
+            this.height="72vh";
           }
           else{
             this.height="35vh";

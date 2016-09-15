@@ -1,6 +1,3 @@
-li:active{
-    background-color:ghostwhite !important;
-}
 li{
         user-select: none;
         -moz-user-select: none;
@@ -21,13 +18,12 @@ li a:hover{
      text-decoration: none;
 }
 li:hover{
-    transform: scale(1.05);
-     -moz-transform:scale(1.05);
-    -webkit-transform:scale(1.05);
+    background-color:#def9ff;
+    transition: none;
 }
 
 .selected{
-    background-color:#add8e6;
+    background-color:#add8e6 !important;
 }
 .selected a{
     color:white !important;
@@ -51,8 +47,9 @@ li:hover{
         height:5vh;
     }
 }
+
 .addplaylist{
         margin-top:10px;
-        background-color:#dfffe8;
+        background-color:#7998a2 !important;
         cursor:pointer;
 }

@@ -15,9 +15,11 @@
    justify-content: center!important;
    flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
+        height: 70vh !important;
+
 }
 .item {
-    background-color: transparent;
+    background-color: white;
     margin: auto;
     padding:0.5vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -25,8 +27,15 @@
 }
 
 body{
-font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-overflow-y: hidden;
+    height:100vh !important;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background-color: #add8e6 !important;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+    overflow-y: hidden;
+}
+html{
+    height: 100vh !important;
 }
 
 @media screen and (max-width: 480px) {

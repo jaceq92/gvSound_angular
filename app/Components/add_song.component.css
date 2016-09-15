@@ -1,7 +1,13 @@
 .modal-body{
     overflow-y: scroll !important;
     overflow-x:hidden;
-    height:50vh;
+    height:40vh;
+}
+
+@media screen and (max-height: 600px) {
+    .modal-body{
+       height:20vh !important;
+    }
 }
 li{
         user-select: none;
@@ -11,6 +17,7 @@ li{
         -o-user-select: none;
         margin-top:4px;
         border-radius:5px;
+        border:none;
         transition: all .2s ease-in-out;
         font-size: small;
 }
@@ -25,9 +32,8 @@ li a:hover{
      text-decoration: none;
 }
 li:hover{
-    transform: scale(1.05);
-     -moz-transform:scale(1.05);
-    -webkit-transform:scale(1.05);
+    background-color:#def9ff;
+    transition: none;
 }
 .selected{
     background-color:#add8e6;

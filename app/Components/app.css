@@ -3,6 +3,13 @@
     height:45vh;
     margin-top:2.5vh;
 }
+
+@media screen and (max-height: 600px) {
+    .item{
+       height:35vh !important;
+    }
+}
+
 .playerhide{
     visibility: hidden;
     opacity: 0;
@@ -13,4 +20,5 @@
     opacity:100;
     transition: visibility 1000ms linear 1000ms, opacity 1000ms;
     transition-delay: 0.5s;
+        height:45vh;
 }
