@@ -18,10 +18,10 @@
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-	"ng2-dnd": 					  {"defaultExtension": "js"},
+	"ng2-dnd": 					  { main: 'index.js', defaultExtension: 'js' },
 	'@angular/forms': 			  { main: 'bundles/forms.umd.js', defaultExtension: 'js' },
-	"ng2-toasty": 				  {"defaultExtension": "js"},
-	"angular2-contextmenu":		  {"defaultExtension": "js"},
+	"ng2-toasty": 				  { main: 'index.js', defaultExtension: 'js' },
+	"angular2-contextmenu":		  { main: 'index.js', defaultExtension: 'js' },
   };
   var ngPackageNames = [
     'common',

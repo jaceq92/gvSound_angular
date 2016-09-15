@@ -7,8 +7,8 @@ import {SoundCloudService}from '../Services/soundcloud.service';
 
 import {Playlist, Song }from '../Model/playlist'; 
 
-import {DND_PROVIDERS, DND_DIRECTIVES}from 'ng2-dnd/ng2-dnd'; 
-import {ToastyService, ToastyConfig, Toasty, ToastOptions, ToastData}from 'ng2-toasty/ng2-toasty'; 
+import {DND_PROVIDERS, DND_DIRECTIVES}from 'ng2-dnd'; 
+import {ToastyService, ToastyConfig, ToastOptions, ToastData}from 'ng2-toasty'; 
 import {ContextMenuComponent, ContextMenuService }from 'angular2-contextmenu/angular2-contextmenu'; 
 import { window }from '@angular/platform-browser/src/facade/browser';
 
@@ -17,7 +17,7 @@ import { window }from '@angular/platform-browser/src/facade/browser';
   selector:'single-playlist', 
   templateUrl:'app/Components/single_playlist.component.html', 
   styleUrls:['app/Components/single_playlist.component.css'], 
-  directives:[DND_DIRECTIVES, Toasty, ContextMenuComponent], 
+  directives:[DND_DIRECTIVES, ContextMenuComponent], 
   providers:[PlaylistService, DND_PROVIDERS, ContextMenuService], 
 })
 

@@ -2,15 +2,14 @@ import {Component, Input, SimpleChanges }from '@angular/core';
 import {Playlist, Song}from '../Model/playlist'; 
 import {PlaylistService }from '../Services/playlist.service'; 
 import { DataService} from '../Services/data.service';
-import {ToastyService, ToastyConfig, Toasty, ToastOptions, ToastData} from 'ng2-toasty/ng2-toasty';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 
 @Component( {
     selector:'add-playlist-modal', 
     templateUrl:'app/Components/add_playlist.component.html', 
     styleUrls:['app/Components/add_playlist.component.css'], 
-    providers:[PlaylistService],
-    directives:[Toasty]
+    providers:[PlaylistService]
 })
 export class AddPlaylistComponent {
     public AddPlaylistModalIsVisible: boolean;
