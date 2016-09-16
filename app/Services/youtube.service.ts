@@ -1,9 +1,7 @@
 /// <reference path="../../typings/globals/youtube/index.d.ts" />
 import { Injectable }     from '@angular/core';
-import { window }from '@angular/platform-browser/src/facade/browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Playlist, Song } from '../Model/playlist';
-
 
 @Injectable()
 export class YoutubeService {

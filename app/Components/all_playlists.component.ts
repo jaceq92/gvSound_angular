@@ -4,11 +4,11 @@ import {PlaylistService }from '../Services/playlist.service';
 import {DataService} from '../Services/data.service';
 
 import {Playlist }from '../Model/playlist';
-
 import { AddPlaylistComponent } from '../Components/add_playlist.component';
 
 import { ContextMenuComponent, ContextMenuService } from 'angular2-contextmenu/angular2-contextmenu';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {DND_PROVIDERS, DND_DIRECTIVES} from 'ng2-dnd';
 
 
 @Component( {
@@ -16,7 +16,6 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
   templateUrl:'app/Components/all_playlists.component.html', 
   styleUrls:['app/Components/all_playlists.component.css'], 
   providers:[PlaylistService, ContextMenuService],
-  directives: [AddPlaylistComponent, ContextMenuComponent]
 })
 
 export class PlaylistsComponent implements OnInit {

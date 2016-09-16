@@ -1,18 +1,17 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Playlist, Song }  from '../Model/Playlist';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
 
 // Import RxJs required methods
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class PlaylistService {
      constructor (private http: Http) {}
-     private Url = 'http://localhost:15044/api/';
+     private Url = '/api/';
 
     getPlaylists() : Observable<Playlist[]> {
             return this.http.get(this.Url + "getplaylists/JSK")

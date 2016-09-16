@@ -1,5 +1,4 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { bootstrap } from '@angular/platform-browser-dynamic';
 
 import { PlaylistComponent } from '../Components/single_playlist.component';
 import { PlaylistsComponent} from '../Components/all_playlists.component';
@@ -16,7 +15,6 @@ import { MediaControlComponent } from '../Components/media_control.component';
   selector: 'my-app',
   templateUrl: 'app/Components/app.html',
   styleUrls:['app/Components/app.css'],
-  directives: [PlaylistComponent, PlaylistsComponent, MediaControlComponent, NavigationComponent],
   providers:  [YoutubeService, DataService, SoundCloudService]
 })
 
