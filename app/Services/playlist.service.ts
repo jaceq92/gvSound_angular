@@ -11,7 +11,7 @@ import { Subject }    from 'rxjs/Subject';
 @Injectable()
 export class PlaylistService {
      constructor (private http: Http) {}
-     private Url = '/api/';
+     private Url = 'http://localhost:15044/api/';
 
     getPlaylists() : Observable<Playlist[]> {
             return this.http.get(this.Url + "getplaylists/JSK")

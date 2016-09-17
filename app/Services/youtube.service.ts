@@ -18,7 +18,9 @@ export class YoutubeService {
         if (window.YT && window.YT.Player) {
         this.player = this.createPlayer(() =>  {}); 
         }
+        if (this.player != undefined){
         this.player.addEventListener('onStateChange', e => this.onStateChanged(e)); 
+        }
         }
         createPlayer (callback) {
          return new window.YT.Player('player',  {
