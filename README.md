@@ -3,6 +3,13 @@
 GVSound is a modern multimedia site created with Angular 2. GVSound tries to make it easy to access content on various sites like Youtube
 and Soundcloud. Our second goal is to make it easy to share this content with your friends. For example, creating playlists for your friend group that all of you can see and edit songs on it.
 
+## Build
+- If you don't have webpack: npm list -g webpack
+- Clone repo
+- npm install
+- npm run build
+- npm run start
+
 ## Features
 - Add content from Youtube and SoundCloud with a custom made search tool
 - Form playlists where you can mix content from both Youtube and SoundCloud
