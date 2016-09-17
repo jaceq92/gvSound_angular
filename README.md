@@ -23,5 +23,5 @@ and Soundcloud. Our second goal is to make it easy to share this content with yo
 - Upgrade to Angular 2 release version.
 - Implement some kind of build system to bundle and minify files for publish.
 
-Demo / current dev version is available on: http://gvdev.azurewebsites.net/
+Demo / current dev version is available on: http://www.gvsound.net/
 
