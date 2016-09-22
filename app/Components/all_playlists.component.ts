@@ -4,11 +4,11 @@ import {PlaylistService }from '../Services/playlist.service';
 import {DataService} from '../Services/data.service';
 
 import {Playlist }from '../Model/playlist';
-
 import { AddPlaylistComponent } from '../Components/add_playlist.component';
 
 import { ContextMenuComponent, ContextMenuService } from 'angular2-contextmenu/angular2-contextmenu';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {DND_PROVIDERS, DND_DIRECTIVES} from 'ng2-dnd';
 
 
 @Component( {
@@ -16,19 +16,30 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
   templateUrl:'app/Components/all_playlists.component.html', 
   styleUrls:['app/Components/all_playlists.component.css'], 
   providers:[PlaylistService, ContextMenuService],
-  directives: [AddPlaylistComponent, ContextMenuComponent]
 })
 
 export class PlaylistsComponent implements OnInit {
     playlists:Array < Playlist >  = []; 
     selectedPlaylist:Playlist;
     height: string;
+    showAddButton: boolean;
     @Input()playerHidden: boolean;
     @ViewChild(AddPlaylistComponent) addPlaylist: AddPlaylistComponent;
 
     constructor (private playlistService:PlaylistService, private dataService: DataService, private contextMenuService: ContextMenuService, private toastyService: ToastyService) {
             this.dataService.playlists$.subscribe(
               playlists => {this.playlists = playlists;}
+            );
+            this.dataService.user$.subscribe(
+              user => {
+                this.getPlaylists();
+                if (localStorage.getItem("username") == "test"){
+                  this.showAddButton = false;
+                } else{
+                  this.showAddButton = true;
+                }
+            }
+            
             );
     }
     
@@ -37,7 +48,13 @@ export class PlaylistsComponent implements OnInit {
        this.dataService.announceSelectedPlaylist(this.selectedPlaylist);
     }
     ngOnInit() {
-        this.getPlaylists(); 
+        this.getPlaylists();
+         if (localStorage.getItem("username") == "test"){
+                  this.showAddButton = false;
+         }
+         else {
+                  this.showAddButton = true;
+         }
     }
      ngOnChanges(changes:SimpleChanges) {
         if(changes['playerHidden'] != undefined){
@@ -75,7 +92,7 @@ export class PlaylistsComponent implements OnInit {
                             this.addToast("error", "Error", "This Playlist cannot be deleted");
           }
           else{
-          this.playlistService.deletePlaylist(item.playlist_id, "JSK").then(
+          this.playlistService.deletePlaylist(item.playlist_id).then(
                                 res => {
                                   this.addToast("success","Playlist deleted!", item.playlist_name);
                                   this.playlists.splice(this.playlists.indexOf(item), 1);

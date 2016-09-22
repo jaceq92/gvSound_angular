@@ -1,9 +1,7 @@
 /// <reference path="../../typings/globals/youtube/index.d.ts" />
 import { Injectable }     from '@angular/core';
-import { window }from '@angular/platform-browser/src/facade/browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Playlist, Song } from '../Model/playlist';
-
 
 @Injectable()
 export class YoutubeService {
@@ -20,7 +18,9 @@ export class YoutubeService {
         if (window.YT && window.YT.Player) {
         this.player = this.createPlayer(() =>  {}); 
         }
+        if (this.player != undefined){
         this.player.addEventListener('onStateChange', e => this.onStateChanged(e)); 
+        }
         }
         createPlayer (callback) {
          return new window.YT.Player('player',  {

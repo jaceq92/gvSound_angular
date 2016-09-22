@@ -1,5 +1,4 @@
 import {Component, Output, EventEmitter }from '@angular/core'; 
-import {bootstrap }from '@angular/platform-browser-dynamic'; 
 import {YoutubeService }from '../Services/youtube.service';
 import {SoundCloudService }from '../Services/soundcloud.service';
 

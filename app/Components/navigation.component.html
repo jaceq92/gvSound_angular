@@ -2,13 +2,20 @@
         <ul>
                 <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                                <input class="form-control" #box (keyup)="keyword=box.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="Search">
+                                <input class="form-control" [disabled]="showLogIn" #box (keyup)="keyword=box.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="">
                         </div>
-                        <button (click)="showAddSongModal()" class="btn btn-default">Search</button>
+                        <button (click)="showAddSongModal()" [disabled]="showLogIn" class="btn btn-default">Search</button>
                 </form>
 
-                <form class="navbar-form navbar-right" role="search">
-                        <button style="margin-right:5px;" class="btn btn-default">Log out</button>
+                <form class="navbar-form navbar-right" role="login">
+                        <div *ngIf="showLogIn" class="form-group">
+                                <input class="form-control" #box2 (keyup)="username=box2.value" (keyup.enter)="showAddSongModal()" type="text" placeholder="Username">
+                                <input class="form-control" #box3 (keyup)="password=box3.value" (keyup.enter)="showAddSongModal()" type="password" placeholder="Password">
+                        </div>
+                        <div *ngIf="showLogIn == false" class="form-group">
+                                <a class="loggedin">Logged in as: {{user.username}}</a>
+                        </div>
+                        <button style="margin-right:5px;" class="btn btn-default" (click)="logIn()">{{buttonText}}</button>
                 </form>
         </ul>
 </nav>

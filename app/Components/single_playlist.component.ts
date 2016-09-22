@@ -10,14 +10,12 @@ import {Playlist, Song }from '../Model/playlist';
 import {DND_PROVIDERS, DND_DIRECTIVES}from 'ng2-dnd'; 
 import {ToastyService, ToastyConfig, ToastOptions, ToastData}from 'ng2-toasty'; 
 import {ContextMenuComponent, ContextMenuService }from 'angular2-contextmenu/angular2-contextmenu'; 
-import { window }from '@angular/platform-browser/src/facade/browser';
 
 
 @Component( {
   selector:'single-playlist', 
   templateUrl:'app/Components/single_playlist.component.html', 
   styleUrls:['app/Components/single_playlist.component.css'], 
-  directives:[DND_DIRECTIVES, ContextMenuComponent], 
   providers:[PlaylistService, DND_PROVIDERS, ContextMenuService], 
 })
 
@@ -148,7 +146,7 @@ export class PlaylistComponent implements OnChanges {
     this.contextMenuService.show.next( {
       actions:[ {
           html:() => `Delete ` + item.song_artist + " - " + item.song_name, 
-          click:(item) =>  {if (item.username == "JSK") {
+          click:(item) =>  {if (item.username.toLowerCase() == (localStorage.getItem("username"))) {
                                 this.deleteSong(item)
                               }else {
                                 this.addToast("error", "Error", "Delete denied"); 

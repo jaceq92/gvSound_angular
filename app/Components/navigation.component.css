@@ -12,18 +12,14 @@ li {
 .navbar{
         box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-li a {
-    display: block;
-    cursor:pointer;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+.loggedin{
+    padding-right: 15px;
+    color:black;
+}
+.loggedin:hover{
     text-decoration: none;
 }
-li a:hover {
-    background-color: #91d0e5;
-}
+
 @media screen and (max-width: 480px) {
     .btn.btn-default{
         display:none;
