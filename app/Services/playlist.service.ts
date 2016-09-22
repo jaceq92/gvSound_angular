@@ -4,17 +4,13 @@ import { Playlist, Song }  from '../Model/Playlist';
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
-
-// Import RxJs required methods
-
-
 @Injectable()
 export class PlaylistService {
      constructor (private http: Http) {}
-     private Url = 'http://localhost:15044/api/';
+     private Url = '/api/';
 
     getPlaylists() : Observable<Playlist[]> {
-            return this.http.get(this.Url + "getplaylists/JSK")
+            return this.http.get(this.Url + "getplaylists/" + localStorage.getItem("token"))
                             // ...and calling .json() on the response to return data
                             .map((res:Response) => res.json())
                             //...errors if any
@@ -22,7 +18,7 @@ export class PlaylistService {
         }
 
      getPlaylist(id:number) : Observable<Song[]> {
-         return this.http.get(this.Url + "getplaylist/JSK/" + id)
+         return this.http.get(this.Url + "getplaylist/" + localStorage.getItem("token") + "/" + id)
                         // ...and calling .json() on the response to return data
                          .map((res:Response) => res.json())
                          //...errors if any
@@ -43,12 +39,12 @@ export class PlaylistService {
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
      }
 
-     addSong (body: Song, username:string, playlist_id:number): Promise<Song> {
+     addSong (body: Song, playlist_id:number): Promise<Song> {
         let bodyString = JSON.stringify(body); // Stringify payload
         let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         let options       = new RequestOptions({headers: headers }); // Create a request option
 
-        return this.http.post(this.Url + "insertsong/" + username + "/" + playlist_id, body, options).toPromise() // ...using post request
+        return this.http.post(this.Url + "insertsong/" + localStorage.getItem("token") + "/" + playlist_id, body, options).toPromise() // ...using post request
                          .then((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch(this.handleError); //...errors if any
     }
@@ -58,17 +54,17 @@ export class PlaylistService {
                          .then((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch(this.handleError); //...errors if any
     }
-    insertPlaylist(body:Playlist, username:string): Promise<Playlist>{
+    insertPlaylist(body:Playlist): Promise<Playlist>{
         let bodyString = JSON.stringify(body); // Stringify payload
         let headers    = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         let options    = new RequestOptions({headers: headers }); // Create a request option
         
-        return this.http.post(this.Url + "insertplaylist/" + username, body, options).toPromise()
+        return this.http.post(this.Url + "insertplaylist/" + localStorage.getItem("token"), body, options).toPromise()
                          .then((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch(this.handleError); //...errors if any
     }
-    deletePlaylist(playlist_id:number, username:string): Promise<String>{
-        return this.http.delete(this.Url + "deleteplaylist/" + username + "/" + playlist_id + "/").toPromise() // ...using post request
+    deletePlaylist(playlist_id:number): Promise<String>{
+        return this.http.delete(this.Url + "deleteplaylist/" + localStorage.getItem("token") + "/" + playlist_id + "/").toPromise() // ...using post request
                          .then((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch(this.handleError); //...errors if any
     }

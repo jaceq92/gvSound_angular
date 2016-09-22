@@ -4,7 +4,7 @@
         [class.selected]="playlist === selectedPlaylist" role="button">
         <a>{{playlist.playlist_name}}</a>
         </li>
-        <li (click)="showAddPlaylistModal()" class="list-group-item addplaylist">
+        <li *ngIf="showAddButton" (click)="showAddPlaylistModal()" class="list-group-item addplaylist">
             <a style="color:white;">Add new playlist</a>
         </li>
     </ul>

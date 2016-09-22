@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData}from 'ng2-toasty'; 
 
 import { PlaylistComponent } from '../Components/single_playlist.component';
 import { PlaylistsComponent} from '../Components/all_playlists.component';
@@ -9,6 +10,7 @@ import { SoundCloudService } from '../Services/soundcloud.service';
 import { DataService} from '../Services/data.service';
 
 import { MediaControlComponent } from '../Components/media_control.component';
+import { User } from '../Model/user';
 
 
 @Component({
@@ -21,14 +23,38 @@ import { MediaControlComponent } from '../Components/media_control.component';
 export class AppComponent {
   componentName: 'AppComponent';
   playerHidden: boolean = true;
-  constructor (private youtubeService:YoutubeService, private soundCloudService: SoundCloudService) {}
+  user: User;
+  error: string;
+  constructor (private youtubeService:YoutubeService, private soundCloudService: SoundCloudService, 
+               private toastyService:ToastyService, private dataService: DataService) {
+
+                       this.dataService.error$.subscribe(
+        error =>  {this.error = error;
+                   this.addErrorToast(this.error)}); 
+               }
 
   ngOnInit(){
     this.youtubeService.setupPlayer();
     this.soundCloudService.setupPlayer();
+    if (localStorage.getItem("token") == undefined){
+        this.user = new User();
+        this.user.username = "test";
+        this.user.password = "test";
+        this.dataService.authUser(this.user);
+    }
   }
 
   playerVisibilityChanged(val: any){
     this.playerHidden = val;
   }
+
+  addErrorToast(message:string) {
+    var toastOptions:ToastOptions =  {
+        title:"Error", 
+        msg:message, 
+        showClose:false, 
+        timeout:5000, 
+        theme:'material'}; 
+        this.toastyService.error(toastOptions); 
+    }
 }

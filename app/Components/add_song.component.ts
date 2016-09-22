@@ -99,7 +99,7 @@ export class AddSongComponent {
         if (this.finalSongName != undefined){
         this.selectedResult.song_name = this.finalSongName;}
 
-        this.playlistService.addSong(this.selectedResult, "JSK", this.insertPlaylist.playlist_id).then(
+        this.playlistService.addSong(this.selectedResult, this.insertPlaylist.playlist_id).then(
             res => {
                 if (this.insertPlaylist.playlist_id == this.selectedPlaylist.playlist_id){
                 this.date = new Date();

@@ -32,7 +32,7 @@ export class AddPlaylistComponent {
         event.preventDefault();
         this.newPlaylist = new Playlist();
         this.newPlaylist.playlist_name = this.playlistName;
-        this.playlistService.insertPlaylist(this.newPlaylist, "JSK").then(
+        this.playlistService.insertPlaylist(this.newPlaylist).then(
             res => {
                 this.newPlaylist = res;
                 this.addToast("success", "Playlist Added", this.newPlaylist.playlist_name);

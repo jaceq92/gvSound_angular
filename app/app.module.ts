@@ -42,7 +42,7 @@ providers: [
     PlaylistService,
     SoundCloudService,
     YoutubeService,
-    ToastyService
+    ToastyService,
     ],
 bootstrap: [ AppComponent ]
 })
