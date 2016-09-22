@@ -146,7 +146,7 @@ export class PlaylistComponent implements OnChanges {
     this.contextMenuService.show.next( {
       actions:[ {
           html:() => `Delete ` + item.song_artist + " - " + item.song_name, 
-          click:(item) =>  {if (item.username == "JSK") {
+          click:(item) =>  {if (item.username.toLowerCase() == (localStorage.getItem("username"))) {
                                 this.deleteSong(item)
                               }else {
                                 this.addToast("error", "Error", "Delete denied"); 
