@@ -15,7 +15,7 @@ export class YoutubeService {
           window['onYouTubeIframeAPIReady'] = () =>  {if (window['YT']) {
         this.player = this.createPlayer(() =>  {}); 
         }}; 
-        if (window.YT && window.YT.Player) {
+        if ((<any>window).YT && (<any>window).YT.Player) {
         this.player = this.createPlayer(() =>  {}); 
         }
         if (this.player != undefined){
@@ -23,7 +23,7 @@ export class YoutubeService {
         }
         }
         createPlayer (callback) {
-         return new window.YT.Player('player',  {
+         return new (<any>window).YT.Player('player',  {
         height: '100%', 
         width:'100%', 
         videoId:'', 
