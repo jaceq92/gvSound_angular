@@ -7,7 +7,6 @@ import {Playlist }from '../Model/playlist';
 import { AddPlaylistComponent } from '../Components/add_playlist.component';
 
 import { ContextMenuComponent, ContextMenuService } from 'angular2-contextmenu/angular2-contextmenu';
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {DND_PROVIDERS, DND_DIRECTIVES} from 'ng2-dnd';
 
 
@@ -26,7 +25,7 @@ export class PlaylistsComponent implements OnInit {
     @Input()playerHidden: boolean;
     @ViewChild(AddPlaylistComponent) addPlaylist: AddPlaylistComponent;
 
-    constructor (private playlistService:PlaylistService, private dataService: DataService, private contextMenuService: ContextMenuService, private toastyService: ToastyService) {
+    constructor (private playlistService:PlaylistService, private dataService: DataService, private contextMenuService: ContextMenuService) {
             this.dataService.playlists$.subscribe(
               playlists => {this.playlists = playlists;}
             );
@@ -60,10 +59,10 @@ export class PlaylistsComponent implements OnInit {
         if(changes['playerHidden'] != undefined){
           this.playerHidden = changes['playerHidden'].currentValue;
           if (this.playerHidden == true){
-            this.height="72vh";
+            this.height="100%";
           }
           else{
-            this.height="35vh";
+            this.height="50%";
           }
         }
     }
@@ -89,17 +88,17 @@ export class PlaylistsComponent implements OnInit {
         {
           html: () => `Delete ` + item.playlist_name,
           click: (item) => {if (item.deletable == false){
-                            this.addToast("error", "Error", "This Playlist cannot be deleted");
+                            this.dataService.announceError("This Playlist cannot be deleted");
           }
           else{
           this.playlistService.deletePlaylist(item.playlist_id).then(
                                 res => {
-                                  this.addToast("success","Playlist deleted!", item.playlist_name);
+                                  this.dataService.announceSuccess("Playlist " + item.playlist_name + " deleted!");
                                   this.playlists.splice(this.playlists.indexOf(item), 1);
                                   this.dataService.announcePlaylists(this.playlists);
                                 },
                                 error =>{
-                                  this.addToast("error", "Error", "Playlist delete failed, try again!");
+                                  this.dataService.announceError("Playlist delete failed, try again!");
                                 }
           )}},
         },
@@ -109,22 +108,4 @@ export class PlaylistsComponent implements OnInit {
     });
     $event.preventDefault();
   }
-
-  addToast(type:string, title:string, message:string) {
-
-        var toastOptions:ToastOptions = {
-            title: title,
-            msg: message,
-            showClose: false,
-            timeout: 5000,
-            theme: 'bootstrap'
-        };
-        if (type == "success"){
-        this.toastyService.success(toastOptions);
-        }
-        if (type == "error"){
-          this.toastyService.error(toastOptions);
-        }
-    }
-    
 }

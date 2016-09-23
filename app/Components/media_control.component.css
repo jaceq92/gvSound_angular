@@ -47,6 +47,9 @@ li a:hover {
     cursor:default;
     white-space: nowrap;
 }
+.shuffleOn {
+    color:lightgreen !important;
+}
 @media screen and (max-width: 480px) {
     .nowplaying{
         display: none;

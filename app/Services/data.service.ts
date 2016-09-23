@@ -29,6 +29,12 @@ export class DataService {
      private errorSource = new Subject<any>();
      error$ = this.errorSource.asObservable();
 
+     private successSource = new Subject<any>();
+     success$ = this.successSource.asObservable();
+
+     private shuffleSource = new Subject<boolean>();
+     shuffle$ = this.shuffleSource.asObservable();
+
      announceSelectedPlaylist(selectedPlaylist: Playlist) {
         this.selectedPlaylistSource.next(selectedPlaylist);
      }
@@ -46,6 +52,13 @@ export class DataService {
      }
      announceError(error: string){
          this.errorSource.next(error);
+     }
+     announceSuccess(success: string){
+         this.successSource.next(success);
+     }
+
+     announceShuffle(shuffleState: boolean){
+         this.shuffleSource.next(shuffleState);
      }
 
      authUser(body: User): Promise<any> {

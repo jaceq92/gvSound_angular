@@ -7,5 +7,6 @@
         <li class="ad" style="float:right; padding: 5px 5px; cursor:pointer;"><img (click)="openSoundCloud()" src="assets/powered_by_soundcloud.png"></li>
         <li class="ad" style="float:right; padding: 10px 5px; cursor:pointer;"><img (click)="openYoutube()" src="assets/youtube.png"></li>
         <li class="showVideo" style="float:right;" (click)="togglePlayer()"><a><i class="material-icons">video_label</i></a></li>
+        <li class="shuffle" style="float:right;" (click)="toggleShuffle()"><a [class.shuffleOn]="shuffleState"><i class="material-icons">shuffle</i></a></li>
 </ul>
 </div>

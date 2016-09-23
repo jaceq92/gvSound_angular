@@ -24,14 +24,15 @@ export class AppComponent {
   componentName: 'AppComponent';
   playerHidden: boolean = true;
   user: User;
-  error: string;
   constructor (private youtubeService:YoutubeService, private soundCloudService: SoundCloudService, 
                private toastyService:ToastyService, private dataService: DataService) {
 
-                       this.dataService.error$.subscribe(
-        error =>  {this.error = error;
-                   this.addErrorToast(this.error)}); 
-               }
+        this.dataService.error$.subscribe(
+        error =>  { this.addErrorToast(error)}); 
+               
+        this.dataService.success$.subscribe(
+        success =>  { this.addSuccessToast(success)}); 
+  }
 
   ngOnInit(){
     this.youtubeService.setupPlayer();
@@ -56,5 +57,14 @@ export class AppComponent {
         timeout:5000, 
         theme:'material'}; 
         this.toastyService.error(toastOptions); 
+    }
+  addSuccessToast(message:string) {
+    var toastOptions:ToastOptions =  {
+        title:"Success", 
+        msg:message, 
+        showClose:false, 
+        timeout:5000, 
+        theme:'material'}; 
+        this.toastyService.success(toastOptions); 
     }
 }

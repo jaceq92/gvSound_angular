@@ -32,7 +32,7 @@ li:hover{
     border:none;
 }
 .item{
-    height: 35vh;
+    height: 100%;
     overflow-y:auto;
     width:10vw;
     transition: all .5s ease-in-out;

@@ -8,7 +8,6 @@ import {SoundCloudService}from '../Services/soundcloud.service';
 import {Playlist, Song }from '../Model/playlist'; 
 
 import {DND_PROVIDERS, DND_DIRECTIVES}from 'ng2-dnd'; 
-import {ToastyService, ToastyConfig, ToastOptions, ToastData}from 'ng2-toasty'; 
 import {ContextMenuComponent, ContextMenuService }from 'angular2-contextmenu/angular2-contextmenu'; 
 
 
@@ -28,15 +27,20 @@ export class PlaylistComponent implements OnChanges {
     @Input()playerHidden:boolean; 
     indexOfNextSong:any; 
     height:string; 
-    scPlayerState:number; 
+    scPlayerState:number;
+    shuffleState:boolean;
 
     constructor (private playlistService:PlaylistService, private contextMenuService:ContextMenuService, private dataService:DataService, 
-                private toastyService:ToastyService, private youtubeService:YoutubeService, private soundcloudService:SoundCloudService) {
+                 private youtubeService:YoutubeService, private soundcloudService:SoundCloudService) {
       this.youtubeService.state$.subscribe(
       state =>  {
                   if (state == 0) {
-                      this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
-                      if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
+                      if (this.shuffleState == false) {
+                          this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
+                      }
+                      if (this.shuffleState == true) {
+                        this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
+                      }                      if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
                           this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNextSong].song_url); 
                       }
                       else {
@@ -48,7 +52,12 @@ export class PlaylistComponent implements OnChanges {
       this.soundcloudService.scPlayerState$.subscribe(
       scPlayerState =>  {
                   if (scPlayerState == 0) {
-                      this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
+                      if (this.shuffleState == false) {
+                          this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
+                      }
+                      if (this.shuffleState == true) {
+                        this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
+                      }
                       if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
                             this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNextSong].song_url); 
                       }
@@ -69,26 +78,17 @@ export class PlaylistComponent implements OnChanges {
             this.selectedPlaylist = selectedPlaylist; 
             this.getPlaylist(this.selectedPlaylist.playlist_id); 
             }); 
+      
+      this.dataService.shuffle$.subscribe(
+        shuffleState => {
+          this.shuffleState = shuffleState;
+        }
+      )
 
       this.soundcloudService.scPlayerState$.subscribe(
           scPlayerState =>  {this.scPlayerState = scPlayerState; }); 
     }
 
-    addToast(type:string, title:string, message:string) {
-        var toastOptions:ToastOptions =  {
-            title:title, 
-            msg:message, 
-            showClose:false, 
-            timeout:5000, 
-            theme:'material'}; 
-
-        if (type == "success") {
-        this.toastyService.success(toastOptions); 
-        }
-        if (type == "error") {
-          this.toastyService.error(toastOptions); 
-        }
-    }
     onSelect(song:Song) {
        this.selectedSong = song; 
 
@@ -110,10 +110,10 @@ export class PlaylistComponent implements OnChanges {
         if (changes['playerHidden'] != undefined) {
           this.playerHidden = changes['playerHidden'].currentValue; 
           if (this.playerHidden == true) {
-            this.height = "72vh"; 
+            this.height = "100%"; 
           }
           else {
-            this.height = "35vh"; 
+            this.height = "50%"; 
           }
         }
     }
@@ -136,22 +136,62 @@ export class PlaylistComponent implements OnChanges {
     }
     deleteSong(song:Song) {
       this.playlistService.deleteSong(song.id).then(
-        res =>  {this.addToast("success", "Song deleted", song.song_artist + " - " + song.song_name); 
+        res =>  {this.dataService.announceSuccess("Song deleted " + song.song_artist + " - " + song.song_name); 
                  this.playlist.splice(this.playlist.indexOf(song), 1); 
        }, 
-       error =>  {this.addToast("error", "Error", "Song deletation failed, try again")}); 
+       error =>  {this.dataService.announceError("Delete denied")}); 
     }
 
     public onContextMenu($event:MouseEvent, item:any):void {
     this.contextMenuService.show.next( {
-      actions:[ {
-          html:() => `Delete ` + item.song_artist + " - " + item.song_name, 
-          click:(item) =>  {if (item.username.toLowerCase() == (localStorage.getItem("username"))) {
-                                this.deleteSong(item)
-                              }else {
-                                this.addToast("error", "Error", "Delete denied"); 
-                              }
-        }}, 
+      actions:[ 
+      {
+        html:() => "Sort by artist", 
+          click:(item) =>  {this.selectedPlaylist.songs.sort((a, b) => {
+              if (a.song_artist > b.song_artist) {
+                return 1;
+              }
+              if (a.song_artist < b.song_artist) {
+                return -1;
+              }
+              return 0;
+          }); }
+      },
+       {
+        html:() => "Sort by song", 
+          click:(item) =>  {this.selectedPlaylist.songs.sort((a, b) => {
+              if (a.song_name > b.song_name) {
+                return 1;
+              }
+              if (a.song_name < b.song_name) {
+                return -1;
+              }
+              return 0;
+          }); }
+      },
+       {
+        html:() => "Sort by date", 
+          click:(item) =>  {this.selectedPlaylist.songs.sort((a, b) => {
+              if (a.song_added < b.song_added) {
+                return 1;
+              }
+              if (a.song_added > b.song_added) {
+                return -1;
+              }
+              return 0;
+          }); }
+      },
+      {
+       html:() => `Delete ` + item.song_artist + " - " + item.song_name, 
+        click:(item) =>  {
+          if (item.username.toLowerCase() == (localStorage.getItem("username"))) { 
+              this.deleteSong(item)
+              }
+              else {
+              this.dataService.announceError("Delete denied"); 
+              }
+      }},
+      
       ], 
       event:$event, 
       item:item, 

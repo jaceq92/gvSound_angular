@@ -39,7 +39,7 @@ li{
     border:none;
 }
 .item{
-    height: 35vh;
+    height: 100%;
     overflow-y:auto;
     width:80vw;
     overflow-x:hidden;

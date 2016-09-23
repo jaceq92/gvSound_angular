@@ -2,8 +2,6 @@ import {Component, Input, SimpleChanges }from '@angular/core';
 import {Playlist, Song}from '../Model/playlist'; 
 import {PlaylistService }from '../Services/playlist.service'; 
 import { DataService} from '../Services/data.service';
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
 
 @Component( {
     selector:'add-song-modal', 
@@ -24,7 +22,7 @@ export class AddSongComponent {
     finalSongName:string;
     searchType:string;
 
-    constructor (private playlistService:PlaylistService , private dataService: DataService, private toastyService: ToastyService) {
+    constructor (private playlistService:PlaylistService , private dataService: DataService) {
         this.dataService.selectedPlaylist$.subscribe(
             currentPlaylist => {this.selectedPlaylist = currentPlaylist;});
     }
@@ -106,31 +104,15 @@ export class AddSongComponent {
                 this.selectedResult.song_added = this.date;
                 this.selectedPlaylist.songs.push(this.selectedResult);
                 this.dataService.announceSelectedPlaylist(this.selectedPlaylist);
-                this.addToast("success","Song added", this.selectedResult.song_artist + " - " + this.selectedResult.song_name);
+                this.dataService.announceSuccess("Song " + this.selectedResult.song_artist + " - " + this.selectedResult.song_name + " added");
                 this.resetFields();
                 }
                 else{
-                this.addToast("success","Song added", this.selectedResult.song_artist + " - " + this.selectedResult.song_name);
+                this.dataService.announceSuccess("Song " + this.selectedResult.song_artist + " - " + this.selectedResult.song_name + " added");
                 this.resetFields();
                 }
-            }, error => {this.addToast("error","Error", "Failed to add song. Try again!"); this.resetFields();}
+            }, error => {this.dataService.announceError("Failed to add song. Try again!"); this.resetFields();}
         );
-    }
-    addToast(type:string, title:string, message:string) {
-
-        var toastOptions:ToastOptions = {
-            title: title,
-            msg: message,
-            showClose: false,
-            timeout: 5000,
-            theme: 'bootstrap'
-        };
-        if (type == "success"){
-        this.toastyService.success(toastOptions);
-        }
-        if (type == "error"){
-          this.toastyService.error(toastOptions);
-        }
     }
     playlistSelect(playlist) {
         this.insertPlaylist = playlist; 

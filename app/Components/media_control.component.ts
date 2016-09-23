@@ -19,7 +19,7 @@ export class MediaControlComponent {
   isHidden:EventEmitter < boolean >  = new EventEmitter < boolean > ();
   _isHidden: boolean = true;
   indexOfNext: number;
-
+  shuffleState: boolean = false;
   youtubeState: number;
   soundcloudState: number;
 
@@ -61,7 +61,12 @@ export class MediaControlComponent {
     if (this.playingPlaylist == undefined){
       return;
     }
-    this.indexOfNext = this.playingPlaylist.songs.indexOf(this.currentSong) + 1;
+    if (this.shuffleState == true) {
+      this.indexOfNext = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
+    }
+    else{
+      this.indexOfNext = this.playingPlaylist.songs.indexOf(this.currentSong) + 1;
+    }
     if (this.indexOfNext >= this.playingPlaylist.songs.length){
       this.indexOfNext = 0;
     }
@@ -105,6 +110,16 @@ export class MediaControlComponent {
     else{
       this._isHidden = true;
       this.isHidden.emit(this._isHidden);
+    }
+  }
+  toggleShuffle(){
+    if (this.shuffleState == false){
+      this.dataService.announceShuffle(true);
+      this.shuffleState = true;
+    }
+    else{
+      this.dataService.announceShuffle(false);
+      this.shuffleState = false;
     }
   }
   openSoundCloud(){

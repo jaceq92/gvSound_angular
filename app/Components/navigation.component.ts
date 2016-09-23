@@ -12,8 +12,8 @@ export class NavigationComponent {
       componentName:'NavigationComponent';
       @ViewChild(AddSongComponent) addSong: AddSongComponent;
       keyword = '';
-      username = '';
-      password = '';
+      username:string;
+      password:string;
       buttonText = '';
       user: User;
       result: String;

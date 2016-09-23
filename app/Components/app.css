@@ -1,13 +1,7 @@
 .item{
     width:90.5vw;
-    height:45vh;
+    height:40%;
     margin-top:2.5vh;
-}
-
-@media screen and (max-height: 600px) {
-    .item{
-       height:35vh !important;
-    }
 }
 
 .playerhide{
@@ -20,5 +14,5 @@
     opacity:100;
     transition: visibility 1000ms linear 1000ms, opacity 1000ms;
     transition-delay: 0.5s;
-        height:45vh;
+    height:50%;
 }
