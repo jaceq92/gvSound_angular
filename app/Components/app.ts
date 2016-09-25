@@ -12,17 +12,40 @@ import { DataService} from '../Services/data.service';
 import { MediaControlComponent } from '../Components/media_control.component';
 import { User } from '../Model/user';
 
+import { trigger, state, style, transition, animate, keyframes } from '@angular/core';
 
 @Component({
   selector: 'my-app',
   templateUrl: 'app/Components/app.html',
   styleUrls:['app/Components/app.css'],
-  providers:  [YoutubeService, DataService, SoundCloudService]
+  providers:  [YoutubeService, DataService, SoundCloudService],
+
+  animations: [
+  trigger('flyInOut', [
+    state('in', style({transform: 'translateX(0)'})),
+    transition('void => *', [
+      animate(1000, keyframes([
+        style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
+        style({opacity: 0, transform: 'translateX(15px)',  offset: 0.3}),
+        style({opacity: 1, transform: 'translateX(0)',     offset: 1.0})
+      ]))
+    ]),
+    transition('* => void', [
+      animate(1000, keyframes([
+        style({opacity: 1, transform: 'translateX(0)',     offset: 0}),
+        style({opacity: 0, transform: 'translateX(-15px)', offset: 0.7}),
+        style({opacity: 0, transform: 'translateX(100%)',  offset: 1.0})
+      ]))
+    ])
+  ])
+]
 })
 
 export class AppComponent {
   componentName: 'AppComponent';
   playerHidden: boolean = true;
+  playlistHidden: boolean = false;
+  registerHidden: boolean = true;
   user: User;
   constructor (private youtubeService:YoutubeService, private soundCloudService: SoundCloudService, 
                private toastyService:ToastyService, private dataService: DataService) {
@@ -31,7 +54,13 @@ export class AppComponent {
         error =>  { this.addErrorToast(error)}); 
                
         this.dataService.success$.subscribe(
-        success =>  { this.addSuccessToast(success)}); 
+        success =>  { this.addSuccessToast(success)});
+
+        this.dataService.register$.subscribe(
+          register => { 
+            this.playlistHidden = register;
+          }
+        )
   }
 
   ngOnInit(){

@@ -13,6 +13,7 @@ import { NavigationComponent } from './Components/navigation.component';
 import { AddPlaylistComponent } from './Components/add_playlist.component';
 import { AddSongComponent } from './Components/add_song.component';
 import { MediaControlComponent } from './Components/media_control.component';
+import { RegisterComponent} from './Components/register.component';
 
 import { DataService } from './Services/data.service';
 import { PlaylistService } from './Services/playlist.service';
@@ -33,6 +34,7 @@ declarations: [
     ContextMenuComponent,
     ToastComponent,
     ToastyComponent,
+    RegisterComponent
       ],
 providers: [ 
     DND_PROVIDERS, 

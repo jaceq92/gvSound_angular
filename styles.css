@@ -15,8 +15,8 @@
    justify-content: center!important;
    flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
-        height: 70vh !important;
-
+    height: 90% !important;
+    padding-bottom: 60px;
 }
 .item {
     background-color: white;
@@ -28,14 +28,10 @@
 
 body{
     height:100vh !important;
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 60px;
     background-color: #add8e6 !important;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
     overflow-y: hidden;
-}
-html{
-    height: 100vh !important;
 }
 
 @media screen and (max-width: 480px) {

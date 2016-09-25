@@ -35,7 +35,11 @@ export class DataService {
      private shuffleSource = new Subject<boolean>();
      shuffle$ = this.shuffleSource.asObservable();
 
+     private registerSource = new Subject<boolean>();
+     register$ = this.registerSource.asObservable();
+
      announceSelectedPlaylist(selectedPlaylist: Playlist) {
+        localStorage.setItem("selectedPlaylist", JSON.stringify(selectedPlaylist));
         this.selectedPlaylistSource.next(selectedPlaylist);
      }
      announceCurrentSong(currentSong: Song){
@@ -61,6 +65,10 @@ export class DataService {
          this.shuffleSource.next(shuffleState);
      }
 
+     announceRegister(register: boolean){
+         this.registerSource.next(register);
+     }
+
      authUser(body: User): Promise<any> {
         let bodyString = JSON.stringify(body); // Stringify payload
         let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
@@ -72,6 +80,19 @@ export class DataService {
                              localStorage.setItem("username", body.username);
                              body.token = response.text();
                              this.announceUser(body);
+                        }) 
+                         .catch(response => {this.announceError(response.text())});
+    }
+
+    createUser(body: User): Promise<any> {
+        let bodyString = JSON.stringify(body); // Stringify payload
+        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({headers: headers }); // Create a request option
+
+        return this.http.post(this.Url + "createuser", body, options).toPromise()
+                         .then(response => { 
+                             this.announceSuccess(response.text());
+                             this.announceRegister(false);
                         }) 
                          .catch(response => {this.announceError(response.text())});
     }

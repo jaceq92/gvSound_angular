@@ -67,7 +67,7 @@ export class PlaylistsComponent implements OnInit {
         }
     }
     onLoaded() {
-        this.selectedPlaylist = this.playlists[0]; 
+        this.selectedPlaylist = this.playlists[0];
         this.dataService.announceSelectedPlaylist(this.playlists[0]);
     }
     getPlaylists() {

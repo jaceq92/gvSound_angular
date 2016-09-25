@@ -1,0 +1,14 @@
+<div class="item">
+   <form id="registerform">
+        <div class="form-group">          
+            <input type="text" class="form-control" #boxusername (keyup)="username=boxusername.value" placeholder="Username" required>
+            <input type="password" class="form-control" #boxpassword (keyup)="password=boxpassword.value" pattern=".{6,}" placeholder="Password" required>
+            <input type="password" class="form-control" #boxverifypassword (keyup)="verifypassword=boxverifypassword.value" placeholder="Repeat password" required>
+            <input type="email" class="form-control" #boxemail (keyup)="email=boxemail.value" placeholder="Email" required>
+
+            <div class="g-recaptcha" data-sitekey="6Lcr-yYTAAAAADUL4R8TqIDSBW-KdNm6yjt-JsVu"></div>
+            <button type="submit" (click)="RegisterUser()" style="margin-top:5px;" class="btn btn-default">Register</button>
+            <button type="button" (click)="CancelRegister()" style="margin-top:5px;" class="btn btn-default">Cancel</button>
+        </div>
+   </form>
+</div>

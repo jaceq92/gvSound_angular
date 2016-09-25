@@ -22,6 +22,7 @@ export class MediaControlComponent {
   shuffleState: boolean = false;
   youtubeState: number;
   soundcloudState: number;
+  disableButtons: boolean;
 
   constructor(private youtubeService:YoutubeService, private dataService: DataService, private soundCloudService: SoundCloudService) {
     this.youtubeService.state$.subscribe(
@@ -43,6 +44,10 @@ export class MediaControlComponent {
 
     this.dataService.playingPlaylist$.subscribe(
       playingPlaylist =>{ this.playingPlaylist = playingPlaylist;});
+
+    this.dataService.register$.subscribe(
+      register => { this.disableButtons = register; }
+    )
   }
   ngOnLoaded(){
     this.isHidden.emit(this._isHidden);
@@ -103,6 +108,9 @@ export class MediaControlComponent {
     this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNext]);
   }
   togglePlayer(){
+    if (this.disableButtons == true){
+      return;
+    }
     if (this._isHidden == true){
       this._isHidden = false
       this.isHidden.emit(this._isHidden);

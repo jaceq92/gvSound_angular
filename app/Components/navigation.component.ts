@@ -18,6 +18,7 @@ export class NavigationComponent {
       user: User;
       result: String;
       showLogIn: boolean;
+      registerValue: boolean;
 
       constructor(private dataService: DataService ){
         this.dataService.user$.subscribe(
@@ -31,7 +32,11 @@ export class NavigationComponent {
                   this.showLogIn = true;
                   user = this.user;
                   }
-        }); 
+        });
+        this.dataService.register$.subscribe(
+          register => {this.registerValue = register;}
+        );
+
       }
       showAddSongModal(){
         if (this.keyword == undefined || this.keyword == ""){
@@ -56,7 +61,9 @@ export class NavigationComponent {
         }
       }
 
-      logIn(){
+      logIn(event){
+        event.preventDefault();
+
         if (localStorage.getItem("token") != "dGVzdA=="){
           this.showLogIn = true;
           this.user.username = "test";
@@ -65,11 +72,24 @@ export class NavigationComponent {
         }
         else
         {
+          if (this.username == "" || this.username == undefined || this.password == "" || this.password == undefined){
+          return; 
+          }
           this.user.username = this.username;
           this.user.password = this.password;
           this.dataService.authUser(this.user);
           this.username = "";
           this.password = "";
+        }
+      }
+      register(event){
+        event.preventDefault();
+
+        if (this.registerValue == true){
+          this.dataService.announceRegister(false);
+        }
+        else{
+          this.dataService.announceRegister(true);
         }
       }
 }

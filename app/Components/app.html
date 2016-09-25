@@ -1,7 +1,8 @@
 <navigation-component></navigation-component>
-<div class="container">
+<div [@flyInOut] class="container">
   <all-playlists [playerHidden]="playerHidden"></all-playlists>
-  <single-playlist [playerHidden]="playerHidden"></single-playlist>
+  <single-playlist *ngIf="!playlistHidden" [playerHidden]="playerHidden"></single-playlist>
+  <register *ngIf="playlistHidden"></register>
   <div [class.playerhide]="playerHidden" [class.playervisible]="!playerHidden" class="item">
     <div id="player"></div>
   </div>

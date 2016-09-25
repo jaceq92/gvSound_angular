@@ -40,7 +40,9 @@ export class PlaylistComponent implements OnChanges {
                       }
                       if (this.shuffleState == true) {
                         this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
-                      }                      if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
+                      }
+
+                      if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
                           this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNextSong].song_url); 
                       }
                       else {
@@ -58,11 +60,12 @@ export class PlaylistComponent implements OnChanges {
                       if (this.shuffleState == true) {
                         this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
                       }
+
                       if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
-                            this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNextSong].song_url); 
+                        this.youtubeService.playSong(this.playingPlaylist.songs[this.indexOfNextSong].song_url); 
                       }
                       else {
-                      this.soundcloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNextSong]); 
+                        this.soundcloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNextSong]); 
                       }
                       this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNextSong])}
                 });
@@ -76,18 +79,15 @@ export class PlaylistComponent implements OnChanges {
       this.dataService.selectedPlaylist$.subscribe(
           selectedPlaylist =>  {
             this.selectedPlaylist = selectedPlaylist; 
-            this.getPlaylist(this.selectedPlaylist.playlist_id); 
+            this.getPlaylist(this.selectedPlaylist.playlist_id);
             }); 
       
       this.dataService.shuffle$.subscribe(
-        shuffleState => {
-          this.shuffleState = shuffleState;
-        }
-      )
+        shuffleState => { this.shuffleState = shuffleState;});
 
       this.soundcloudService.scPlayerState$.subscribe(
           scPlayerState =>  {this.scPlayerState = scPlayerState; }); 
-    }
+}
 
     onSelect(song:Song) {
        this.selectedSong = song; 
@@ -117,13 +117,18 @@ export class PlaylistComponent implements OnChanges {
           }
         }
     }
-
+    ngOnInit(){
+      this.playlist = JSON.parse(localStorage.getItem("selectedPlaylistSongs"));
+    }
     getPlaylist(id:number) {
           this.playlistService.getPlaylist(id).subscribe(
             playlist =>  {
-              if (this.selectedPlaylist != undefined) {
+              if (this.selectedPlaylist != undefined) 
+              {
                 this.selectedPlaylist.songs = playlist; 
-                this.playlist = this.selectedPlaylist.songs; }
+                this.playlist = this.selectedPlaylist.songs;
+                localStorage.setItem("selectedPlaylistSongs", JSON.stringify(this.playlist));
+              }
             }); 
     }
     openSourcePage(song:Song){
