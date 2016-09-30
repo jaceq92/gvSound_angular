@@ -14,10 +14,15 @@ export class RegisterComponent {
     password: string;
     verifypassword: string;
     user: User;
+    captchaResolved: boolean = false;
     constructor(private dataService: DataService){
     }
 
     RegisterUser(){
+        if (this.captchaResolved == false){
+            this.dataService.announceError("Resolve captcha");
+            return;
+        }
         this.user = new User();
         if (this.password == this.verifypassword){
             this.user.username = this.username;
@@ -39,5 +44,8 @@ export class RegisterComponent {
     }
     CancelRegister(){
         this.dataService.announceRegister(false);
+    }
+    resolved(captchaResponse: string) {
+        this.captchaResolved = true;
     }
 }

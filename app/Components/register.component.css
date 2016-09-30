@@ -10,6 +10,7 @@
 .form-control{
     margin: 10px;
     margin-left: 0px;
+    width:75%;
 }
 
 .flex-container {
@@ -19,7 +20,7 @@
     justify-content: center;
 }
 .flex-item{
-    width:20vw;
+    width:40vw;
     padding:25px;
     background-color: rgba(255, 255, 255, 0.8);
 }
