@@ -16,13 +16,13 @@ export class YoutubeService {
         this.player = this.createPlayer(() =>  {});
         this.player.addEventListener('onStateChange', e => this.onStateChanged(e));
         }}; 
-        if (window.YT && window.YT.Player) {
+        if (<any>window.YT && <any>window.YT.Player) {
         this.player = this.createPlayer(() =>  {});
         this.player.addEventListener('onStateChange', e => this.onStateChanged(e));
         }
         }
         createPlayer (callback) {
-         return new window.YT.Player('player',  {
+         return new (<any>window).YT.Player('player',  {
         height: '100%', 
         width:'100%', 
         videoId:'', 
