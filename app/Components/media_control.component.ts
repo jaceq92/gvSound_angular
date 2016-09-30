@@ -29,8 +29,10 @@ export class MediaControlComponent {
       state =>  { this.youtubeState = state;
                 if (state == 1 || this.soundcloudState == 1){
                   this.playButtonToggle = "pause_circle_outline";}
-                  else{
-                    this.playButtonToggle = "play_circle_outline"; }});
+                else {
+                  this.playButtonToggle = "play_circle_outline"; 
+                }
+              });
 
     this.soundCloudService.scPlayerState$.subscribe(
       scPlayerState => { this.soundcloudState = scPlayerState;

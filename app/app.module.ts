@@ -5,6 +5,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES } from 'ng2-dnd';
 import { HttpModule } from '@angular/http';
 import { ToastyService, ToastyConfig, ToastyComponent, ToastComponent } from 'ng2-toasty';
 import { ContextMenuComponent, ContextMenuService } from 'angular2-contextmenu/angular2-contextmenu';
+import { RecaptchaModule } from 'ng2-recaptcha';
 
 import { AppComponent } from './Components/app';
 import { PlaylistComponent } from './Components/single_playlist.component';
@@ -21,7 +22,7 @@ import { SoundCloudService } from './Services/soundcloud.service';
 import { YoutubeService } from './Services/youtube.service';
 
 @NgModule({
-imports: [ BrowserModule, FormsModule, HttpModule],
+imports: [ BrowserModule, FormsModule, HttpModule, RecaptchaModule.forRoot()],
 declarations: [ 
     AppComponent,
     PlaylistComponent,

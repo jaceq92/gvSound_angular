@@ -4,6 +4,7 @@ import { Playlist, Song }       from '../Model/Playlist';
 import { User } from '../Model/User';
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class DataService {
@@ -32,7 +33,7 @@ export class DataService {
      private successSource = new Subject<any>();
      success$ = this.successSource.asObservable();
 
-     private shuffleSource = new Subject<boolean>();
+     private shuffleSource = new BehaviorSubject<boolean>(false);
      shuffle$ = this.shuffleSource.asObservable();
 
      private registerSource = new Subject<boolean>();

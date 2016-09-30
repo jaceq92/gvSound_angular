@@ -5,7 +5,7 @@ import { DataService} from '../Services/data.service';
 @Component( {
     selector:'register', 
     templateUrl:'app/Components/register.component.html', 
-    styleUrls:['app/Components/register.component.css']
+    styleUrls:['app/Components/register.component.css'],
 })
 export class RegisterComponent {
     componentName:'RegisterComponent';
@@ -15,7 +15,6 @@ export class RegisterComponent {
     verifypassword: string;
     user: User;
     constructor(private dataService: DataService){
-
     }
 
     RegisterUser(){

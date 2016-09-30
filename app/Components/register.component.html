@@ -1,14 +1,26 @@
-<div class="item">
-   <form id="registerform">
-        <div class="form-group">          
-            <input type="text" class="form-control" #boxusername (keyup)="username=boxusername.value" placeholder="Username" required>
-            <input type="password" class="form-control" #boxpassword (keyup)="password=boxpassword.value" pattern=".{6,}" placeholder="Password" required>
-            <input type="password" class="form-control" #boxverifypassword (keyup)="verifypassword=boxverifypassword.value" placeholder="Repeat password" required>
-            <input type="email" class="form-control" #boxemail (keyup)="email=boxemail.value" placeholder="Email" required>
-
-            <div class="g-recaptcha" data-sitekey="6Lcr-yYTAAAAADUL4R8TqIDSBW-KdNm6yjt-JsVu"></div>
-            <button type="submit" (click)="RegisterUser()" style="margin-top:5px;" class="btn btn-default">Register</button>
-            <button type="button" (click)="CancelRegister()" style="margin-top:5px;" class="btn btn-default">Cancel</button>
-        </div>
-   </form>
+<div class="item flex-container">
+    <div class="flex-item">
+        <form id="registerform">
+                <div class="form-group">
+                    <div class="page-header">
+                                <h2>Register</h2>
+                    </div>     
+                    <input type="text" class="form-control" #boxusername (keyup)="username=boxusername.value" placeholder="Username" required>
+                    <input type="password" class="form-control" #boxpassword (keyup)="password=boxpassword.value" pattern=".{6,}" placeholder="Password" required>
+                    <input type="password" class="form-control" #boxverifypassword (keyup)="verifypassword=boxverifypassword.value" placeholder="Repeat password" required>
+                    <input type="email" class="form-control" #boxemail (keyup)="email=boxemail.value" placeholder="Email" required>
+                    <recaptcha (resolved)="resolved($event)" siteKey="6Lcr-yYTAAAAADUL4R8TqIDSBW-KdNm6yjt-JsVu"></recaptcha>
+                    <button type="submit" (click)="RegisterUser()" style="margin-top:5px;" class="btn btn-default">Register</button>
+                    <button type="button" (click)="CancelRegister()" style="margin-top:5px;" class="btn btn-default">Cancel</button>
+                </div>
+        </form>
+    </div>
+    <div class="flex-item">
+        <div class="page-header">
+            <h2>About GVSound</h2>
+        </div>  
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+        </p>
+    </div>
 </div>

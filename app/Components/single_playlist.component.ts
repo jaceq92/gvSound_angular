@@ -15,13 +15,14 @@ import {ContextMenuComponent, ContextMenuService }from 'angular2-contextmenu/ang
   selector:'single-playlist', 
   templateUrl:'app/Components/single_playlist.component.html', 
   styleUrls:['app/Components/single_playlist.component.css'], 
-  providers:[PlaylistService, DND_PROVIDERS, ContextMenuService], 
+  providers:[PlaylistService, DND_PROVIDERS, ContextMenuService]
 })
 
 export class PlaylistComponent implements OnChanges {
     componentName:'PlaylistComponent'; 
-    selectedSong:Song; 
-    playlist:Array < Song >  = []; 
+    selectedSong:Song;
+    playlist:Array < Song >  = [];
+    idArray: Array < number > = [];
     playingPlaylist:Playlist; 
     selectedPlaylist:Playlist; 
     @Input()playerHidden:boolean; 
@@ -39,7 +40,7 @@ export class PlaylistComponent implements OnChanges {
                           this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
                       }
                       if (this.shuffleState == true) {
-                        this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
+                          this.indexOfNextSong = Math.floor(Math.random() * (this.playingPlaylist.songs.length - 0 + 1)) + 0;
                       }
 
                       if (this.playingPlaylist.songs[this.indexOfNextSong].source == 'youtube') {
@@ -48,11 +49,13 @@ export class PlaylistComponent implements OnChanges {
                       else {
                           this.soundcloudService.playNewSong(this.playingPlaylist.songs[this.indexOfNextSong]); 
                       }
-                      this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNextSong])}
+                      this.dataService.announceCurrentSong(this.playingPlaylist.songs[this.indexOfNextSong]);
+                    }
                 }); 
 
       this.soundcloudService.scPlayerState$.subscribe(
       scPlayerState =>  {
+        this.scPlayerState = scPlayerState;
                   if (scPlayerState == 0) {
                       if (this.shuffleState == false) {
                           this.indexOfNextSong = this.playingPlaylist.songs.indexOf(this.selectedSong) + 1; 
@@ -74,7 +77,9 @@ export class PlaylistComponent implements OnChanges {
         currentSong =>  {this.selectedSong = currentSong; }); 
 
       this.dataService.playingPlaylist$.subscribe(
-        playingPlaylist =>  {this.playingPlaylist = playingPlaylist; }); 
+        playingPlaylist =>  {
+          this.playingPlaylist = playingPlaylist;
+        }); 
 
       this.dataService.selectedPlaylist$.subscribe(
           selectedPlaylist =>  {
@@ -84,9 +89,6 @@ export class PlaylistComponent implements OnChanges {
       
       this.dataService.shuffle$.subscribe(
         shuffleState => { this.shuffleState = shuffleState;});
-
-      this.soundcloudService.scPlayerState$.subscribe(
-          scPlayerState =>  {this.scPlayerState = scPlayerState; }); 
 }
 
     onSelect(song:Song) {

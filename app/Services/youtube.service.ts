@@ -13,13 +13,12 @@ export class YoutubeService {
 
       setupPlayer() {
           window['onYouTubeIframeAPIReady'] = () =>  {if (window['YT']) {
-        this.player = this.createPlayer(() =>  {}); 
+        this.player = this.createPlayer(() =>  {});
+        this.player.addEventListener('onStateChange', e => this.onStateChanged(e));
         }}; 
         if (window.YT && window.YT.Player) {
-        this.player = this.createPlayer(() =>  {}); 
-        }
-        if (this.player != undefined){
-        this.player.addEventListener('onStateChange', e => this.onStateChanged(e)); 
+        this.player = this.createPlayer(() =>  {});
+        this.player.addEventListener('onStateChange', e => this.onStateChanged(e));
         }
         }
         createPlayer (callback) {
@@ -34,7 +33,7 @@ export class YoutubeService {
             'rel':0, 
             'showinfo':0
         }
-    }); 
+    });
     }
     playSong(song_url:string) {
         this.player.loadVideoById(song_url, 0, "highres"); 
